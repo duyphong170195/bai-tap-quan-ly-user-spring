@@ -25,4 +25,6 @@ public class MstGroupRepositoryTest {
             System.out.print(mstGroup.getGroupId());
         });
     }
+
+
 }
