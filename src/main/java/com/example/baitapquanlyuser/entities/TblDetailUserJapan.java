@@ -25,23 +25,31 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 public class TblDetailUserJapan {
+	
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NotNull
 	private int detailUserJapanId;
+	
 	@OneToOne
 	@JoinColumn(name = "user_id")
 	@Valid
 	@NotNull
 	private TblUser tblUser;
+	
 	@OneToOne
 	@JoinColumn(name = "code_level")
+	@Valid
 	private MstJapan mstJapan;
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "start_date", nullable = false)
 	private Date startDate;
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "end_date", nullable = false)
 	private Date endDate;
+	
 	@Column(name = "total", nullable = false)
 	private int total;
 }

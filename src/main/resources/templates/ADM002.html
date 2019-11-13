@@ -1,0 +1,128 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="../css/style.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="../js/user.js"></script>
+	<title>ユーザ管理</title>
+</head>
+<body>
+<!-- Begin vung header -->
+<div>
+	<div>
+		<table>
+			<tr>
+				<td width = "80%"><img src="../images/logo-manager-user.gif" alt="Luvina" /><td>
+				<td align="left"><a href = "ADM001.html">ログアウト</a> &nbsp; <a href = "ADM002.html">トップ</a><td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<!-- End vung header -->
+
+<!-- Begin vung dieu kien tim kiem -->
+<form action="/listUser" method="get" name="mainform">
+	<table  class="tbl_input" border="0" width="90%"  cellpadding="0" cellspacing="0" >
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td>
+				会員名称で会員を検索します。検索条件無しの場合は全て表示されます。
+			</td>
+		</tr>
+		<tr>
+			<td width="100%">
+				<table class="tbl_input" cellpadding="4" cellspacing="0" >
+					<tr>
+						<td class="lbl_left">氏名:</td>
+						<td align="left">
+							<input class="txBox" type="text" th:name="fullName" th:value="${fullName}"
+								   size="20" onfocus="this.style.borderColor='#0066ff';"
+								   onblur="this.style.borderColor='#aaaaaa';" />
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="lbl_left">グループ:</td>
+						<td align="left" width="80px">
+							<select name="groupId">
+								<option value="0">全て</option>
+								<th:block th:each="group : ${mstGroupList}">
+									<option th:if="${group.groupId eq groupId}" selected="selected" th:value="${group.groupId}" th:text = "${group.groupName}"></option>
+									<option th:unless="${group.groupId eq groupId}" th:value="${group.groupId}" th:text = "${group.groupName}"></option>
+								</th:block>
+							</select>
+						</td>
+						<td align="left">
+							<input class="btn" type="submit" value="検索" />
+							<input class="btn" type="button" value="新規追加"/>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<!-- End vung dieu kien tim kiem -->
+</form>
+<!-- Begin vung hien thi danh sach user -->
+<table class="tbl_list" border="1" cellpadding="4" cellspacing="0" width="80%">
+
+	<tr class="tr2">
+		<th align="center" width="20px">
+			ID
+		</th>
+		<th align="left">
+			氏名 <a href = "">▲▽</a>
+		</th>
+		<th align="left">
+			生年月日
+		</th>
+		<th align="left">
+			グループ
+		</th>
+		<th align="left">
+			メールアドレス
+		</th>
+		<th align="left" width="70px">
+			電話番号
+		</th>
+		<th align="left">
+			日本語能力  <a href = "">▲▽</a>
+		</th>
+		<th align="left">
+			失効日 <a href = "">△▼</a>
+		</th>
+		<th align="left">
+			点数
+		</th>
+	</tr>
+	<th:block th:each="userInfor : ${userInformationList}">
+		<tr>
+			<td><p th:text="${userInfor.userId}"></p></td>
+			<td><p th:text="${userInfor.fullName}"></p></td>
+			<td><p th:text="${userInfor.birthday}"></p></td>
+			<td><p th:text="${userInfor.groupName}"></p></td>
+			<td><p th:text="${userInfor.email}"></p></td>
+			<td><p th:text="${userInfor.telephone}"></p></td>
+			<td><p th:text="${userInfor.nameLevel}"></p></td>
+			<td><p th:text="${userInfor.endDate}"></p></td>
+			<td><p th:text="${userInfor.total}"></p></td>
+		</tr>
+	</th:block>
+</table>
+<!-- End vung hien thi danh sach user -->
+<!-- Begin vung footer -->
+<div class = "lbl_footer">
+	<br><br><br><br>
+	Copyright ©　2010　ルビナソフトウエア株式会社. All rights reserved.
+</div>
+<!-- End vung footer -->
+
+</body>
+
+</html>

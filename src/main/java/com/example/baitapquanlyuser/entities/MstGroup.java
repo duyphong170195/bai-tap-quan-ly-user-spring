@@ -19,31 +19,32 @@ import javax.validation.constraints.Pattern;
 @Table(name = "mst_group")
 @AllArgsConstructor
 @NoArgsConstructor
-public class MstGroup implements Serializable{
+public class MstGroup implements Serializable {
+	
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "group_id", nullable = false)
 	@NotNull
 	private int groupId;
-	@Column(name = "group_name", length= 255, nullable = false)
+	
+	@Column(name = "group_name", length = 255, nullable = false)
 	@NotNull
 	@Pattern(regexp = "[a-zA-Z0-9]{4,255}")
 	private String groupName;
 	
+	
 	public int getGroupId() {
 		return groupId;
 	}
-
-
+	
 	public void setGroupId(int groupId) {
 		this.groupId = groupId;
 	}
-
-
+	
 	public String getGroupName() {
 		return groupName;
 	}
-
+	
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}

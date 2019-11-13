@@ -17,14 +17,10 @@ public class MstGroupRepositoryTest {
 
     @Autowired
     MstGroupRepository mstGroupRepository;
+    @Autowired
+    TblDetailUserJapanRepository tblDetailUserJapanRepository;
 
     @Test
     public void findAll(){
-        List<MstGroup> mstGroupList = mstGroupRepository.findAll();
-        mstGroupList.forEach(mstGroup -> {
-            System.out.print(mstGroup.getGroupId());
-        });
     }
-
-
 }
