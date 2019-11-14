@@ -22,5 +22,10 @@ public class MstGroupRepositoryTest {
 
     @Test
     public void findAll(){
+
+        String a = "";
+        if(a.isEmpty()){
+            System.out.print("aaaaaaaaaaaaaaaaaaaHello world");
+        }
     }
 }

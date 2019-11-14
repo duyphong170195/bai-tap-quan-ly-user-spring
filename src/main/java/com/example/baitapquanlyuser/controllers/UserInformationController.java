@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,16 +33,27 @@ public class UserInformationController {
 	
 	
 	@RequestMapping(value = "/listUser", method = RequestMethod.GET)
-	public String getListUser(Model model, @RequestParam(value = "fullName", defaultValue = "") String fullName,
-			@RequestParam(value = "groupId", defaultValue = "0") String groupId) {
+	public String getListUser(Model model, HttpServletRequest req,
+		  	@RequestParam(value = "action", defaultValue ="search" ) String action,
+			@RequestParam(value = "fullName", defaultValue = "") String fullName,
+			@RequestParam(value = "groupId", defaultValue = "0") String groupId,
+			@RequestParam(value = "sortType", defaultValue = "") String sortType,
+			@RequestParam(value = "sortNameValue", defaultValue = "ASC") String sortNameValue,
+			@RequestParam(value = "sortLevelValue", defaultValue = "ASC") String sortLevelValue,
+			@RequestParam(value = "sortDateValue", defaultValue = "DESC") String sortDateValue) {
 		try {
+			HttpSession session = req.getSession();
 			List<UserInformation> userInformationList =
-					userInformationService.getListUsersInformation(fullName, groupId);
+					userInformationService.getListUsersInformation(action, fullName, groupId, sortType, sortNameValue, sortLevelValue, sortDateValue);
 			List<MstGroup> mstGroupList = mstGroupService.getAllMstGroup();
 			model.addAttribute("userInformationList", userInformationList);
 			model.addAttribute("mstGroupList", mstGroupList);
 			model.addAttribute("groupId", Common.toInteger(groupId));
 			model.addAttribute("fullName", fullName);
+			model.addAttribute("sortType", sortType);
+			model.addAttribute("sortNameValue", sortNameValue);
+			model.addAttribute("sortLevelValue", sortLevelValue);
+			model.addAttribute("sortDateValue", sortDateValue);
 			return "ADM002";
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface TblDetailUserJapanRepositoryCustom {
 	
-	List<UserInformation> findAllUser(String fullName, int groupId);
+	List<UserInformation> findAllUser(String fullName, int groupId, String sortType, String sortValue);
 }
