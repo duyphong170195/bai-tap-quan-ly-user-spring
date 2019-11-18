@@ -74,4 +74,32 @@ public class TblDetailUserJapanRepositoryImpl implements TblDetailUserJapanRepos
 
 		return query.getResultList();
 	}
+
+	@Override
+	public List<UserInformation> findAllUser(String fullName, int groupId) {
+		StringBuilder queryStatement = new StringBuilder();
+		queryStatement.append(
+				"SELECT new com.example.baitapquanlyuser.model.UserInformation(tblUser.userId, tblUser.fullName, DATE_FORMAT(tblUser.birthday, '%Y-%m-%d'), mstGroup.groupName, tblUser.email, tblUser.telephone, coalesce(mstJapan.nameLevel,''), coalesce(DATE_FORMAT(tblDetail.endDate, '%Y-%m-%d'),''), coalesce(tblDetail.total, 0)   ) ");
+		queryStatement.append("FROM TblDetailUserJapan tblDetail ");
+		queryStatement.append("RIGHT JOIN tblDetail.tblUser tblUser ");
+		queryStatement.append("LEFT JOIN tblDetail.mstJapan mstJapan ");
+		queryStatement.append("INNER JOIN tblUser.mstGroup mstGroup ");
+		queryStatement.append("WHERE (1=1) ");
+		if (fullName.isEmpty() == false) {
+			queryStatement.append("AND tblUser.fullName LIKE :fullName ");
+		}
+		if (groupId > 0) {
+			queryStatement.append("AND mstGroup.groupId = :groupId ");
+		}
+		Query query = entityManager.createQuery(queryStatement.toString());
+		if (fullName.isEmpty() == false) {
+			fullName = Common.replaceWildcard(fullName);
+			query.setParameter("fullName", "%" + fullName + "%");
+		}
+		if (groupId > 0) {
+			query.setParameter("groupId", groupId);
+		}
+
+		return query.getResultList();
+	}
 }

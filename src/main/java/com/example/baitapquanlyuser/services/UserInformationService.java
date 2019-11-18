@@ -57,4 +57,9 @@ public class UserInformationService {
 		}
 		return tblDetailUserJapanRepository.findAllUser(fullName, Common.toInteger(groupId), sortType, sortValue);
 	}
+
+	public List<UserInformation> getListUsersInformation(String fullName, String groupId){
+
+		return tblDetailUserJapanRepository.findAllUser(fullName, Common.toInteger(groupId));
+	}
 }

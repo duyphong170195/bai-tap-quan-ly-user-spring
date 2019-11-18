@@ -32,7 +32,7 @@ public class UserInformationController {
 	MstGroupService mstGroupService;
 	
 	
-	@RequestMapping(value = "/listUser", method = RequestMethod.GET)
+	@RequestMapping(value = "/listUser1111111", method = RequestMethod.GET)
 	public String getListUser(Model model, HttpServletRequest req,
 		  	@RequestParam(value = "action", defaultValue ="search" ) String action,
 			@RequestParam(value = "fullName", defaultValue = "") String fullName,
@@ -60,4 +60,12 @@ public class UserInformationController {
 			return "index";
 		}
 	}
+
+	@RequestMapping(value = "/listUser", method = RequestMethod.GET)
+	public String getListUser(){
+
+
+		return "ADM0002";
+	}
+
 }

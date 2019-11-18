@@ -1,0 +1,4 @@
+https://grokonez.com/java-integration/integrate-jquery-ajax-post-get-spring-boot-web-service
+https://www.javacodegeeks.com/2012/11/spring-mvc-error-handling-example.html
+
+error handling: https://www.toptal.com/java/spring-boot-rest-api-error-handling
