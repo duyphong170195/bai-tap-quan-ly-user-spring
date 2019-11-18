@@ -1,5 +1,6 @@
 package com.example.baitapquanlyuser.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -25,11 +26,13 @@ public class MstGroup implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "group_id", nullable = false)
 	@NotNull
+	@JsonProperty("group_id")
 	private int groupId;
 	
 	@Column(name = "group_name", length = 255, nullable = false)
 	@NotNull
 	@Pattern(regexp = "[a-zA-Z0-9]{4,255}")
+	@JsonProperty("group_name")
 	private String groupName;
 	
 	

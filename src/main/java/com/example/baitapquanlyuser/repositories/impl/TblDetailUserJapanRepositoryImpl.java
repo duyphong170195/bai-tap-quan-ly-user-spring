@@ -4,7 +4,6 @@ import com.example.baitapquanlyuser.model.UserInformation;
 import com.example.baitapquanlyuser.repositories.TblDetailUserJapanRepository;
 import com.example.baitapquanlyuser.repositorycustom.TblDetailUserJapanRepositoryCustom;
 import com.example.baitapquanlyuser.utils.Common;
-import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +20,8 @@ public class TblDetailUserJapanRepositoryImpl implements TblDetailUserJapanRepos
 	
 	@Override
 	public List<UserInformation> findAllUser(String fullName, int groupId, String sortType, String sortValue) {
-		Preconditions.checkNotNull(fullName, "fullName must not be null");
-		Preconditions.checkNotNull(sortType, "sortType must not be null");
+//		Preconditions.checkNotNull(fullName, "fullName must not be null");
+//		Preconditions.checkNotNull(sortType, "sortType must not be null");
 
 		StringBuilder queryStatement = new StringBuilder();
 		queryStatement.append(
