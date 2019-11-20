@@ -11,7 +11,8 @@ $(document).ready(function () {
             });
         },
         error: function (e) {
-            alert(e);
+            var error = JSON.parse(e.responseText);
+            alert(error.apierror.message);
         }
     });
 
@@ -78,7 +79,7 @@ $(document).ready(function () {
                 $("#btn-login").prop("disabled", false);
             },
             error: function(e){
-                alert(e);
+                alert(e.message);
             }
         });
     });

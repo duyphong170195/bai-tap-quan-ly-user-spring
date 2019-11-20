@@ -2,3 +2,10 @@ https://grokonez.com/java-integration/integrate-jquery-ajax-post-get-spring-boot
 https://www.javacodegeeks.com/2012/11/spring-mvc-error-handling-example.html
 
 error handling: https://www.toptal.com/java/spring-boot-rest-api-error-handling
+
+promises: https://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html
+https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Promises
+
+call back: https://javascriptissexy.com/understand-javascript-callback-functions-and-use-them/
+
+JavaScript Closures: https://javascriptissexy.com/understand-javascript-closures-with-ease/

@@ -1,7 +1,9 @@
 package com.example.baitapquanlyuser.services;
 
 import com.example.baitapquanlyuser.entities.MstGroup;
+import com.example.baitapquanlyuser.exceptionhandling.EntityNotFoundException;
 import com.example.baitapquanlyuser.repositories.MstGroupRepository;
+import com.example.baitapquanlyuser.utils.Common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,10 @@ public class MstGroupService {
 	
 	public List<MstGroup> getAllMstGroup() {
 		return mstGroupRepository.findAll();
+	}
+
+	public MstGroup findById(Integer groupId) {
+		return mstGroupRepository.findById(groupId)
+			.orElseThrow(() -> new EntityNotFoundException(MstGroup.class, "id", groupId.toString()));
 	}
 }
