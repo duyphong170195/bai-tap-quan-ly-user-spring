@@ -25,7 +25,7 @@ public class TblDetailUserJapanRepositoryImpl implements TblDetailUserJapanRepos
 
 		StringBuilder queryStatement = new StringBuilder();
 		queryStatement.append(
-				"SELECT new com.example.baitapquanlyuser.model.UserInformation(tblUser.userId, tblUser.fullName, tblUser.birthday, mstGroup.groupName, tblUser.email, tblUser.telephone, mstJapan.nameLevel, tblDetail.endDate, tblDetail.total) ");
+				"SELECT new com.example.baitapquanlyuser.model.UserInformation(tblUser.userId, tblUser.fullName, DATE_FORMAT(tblUser.birthday, '%Y-%m-%d'), mstGroup.groupName, tblUser.email, tblUser.telephone, coalesce(mstJapan.nameLevel,''), coalesce(DATE_FORMAT(tblDetail.endDate, '%Y-%m-%d'),''), coalesce(tblDetail.total, 0)   ) ");
 		queryStatement.append("FROM TblDetailUserJapan tblDetail ");
 		queryStatement.append("RIGHT JOIN tblDetail.tblUser tblUser ");
 		queryStatement.append("LEFT JOIN tblDetail.mstJapan mstJapan ");

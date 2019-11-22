@@ -20,9 +20,8 @@ public class MstGroupRestController {
     MstGroupService mstGroupService;
 
     @RequestMapping(value = "/listGroupRest", method = RequestMethod.GET)
-    public ResponseEntity<List<MstGroup>> getAllMstGroup() throws  EntityNotFoundException{
+    public ResponseEntity<List<MstGroup>> getAllMstGroup() throws  IllegalStateException{
             List<MstGroup> mstGroupList = mstGroupService.getAllMstGroup();
-            mstGroupService.findById(6);
             return ResponseEntity.ok(mstGroupList);
     }
 

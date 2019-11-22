@@ -25,10 +25,14 @@ public class UserInformationRestController {
 
     @RequestMapping(value = "/listUserRest", method = RequestMethod.GET)
     public ResponseEntity<List<UserInformation>> getListUser(
+            @RequestParam(value = "action", defaultValue = "") String action,
             @RequestParam(value = "full_name", defaultValue = "") String fullName,
-            @RequestParam(value = "group_id", defaultValue = "0") String groupId) {
+            @RequestParam(value = "group_id", defaultValue = "0") String groupId,
+            @RequestParam(value = "sort_type", defaultValue = "") String sortType,
+            @RequestParam(value = "sort_value", defaultValue = "ASC") String sortNameValue) {
         List<UserInformation> userInformationList =
-                userInformationService.getListUsersInformation(fullName, groupId);
+                userInformationService.getListUsersInformation(action, fullName, groupId, sortType, sortNameValue, "", "");
+
         return ResponseEntity.ok(userInformationList);
     }
 }

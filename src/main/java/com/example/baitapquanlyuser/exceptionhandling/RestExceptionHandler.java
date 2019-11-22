@@ -123,6 +123,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
+    @ExceptionHandler(IllegalStateException.class)
+    protected ResponseEntity<Object> handleListEmpty(
+            IllegalStateException ex) {
+        ApiError apiError = new ApiError(BAD_REQUEST);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
     /**
      * Handle HttpMessageNotReadableException. Happens when request JSON is malformed.
      *

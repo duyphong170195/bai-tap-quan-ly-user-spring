@@ -17,7 +17,11 @@ public class MstGroupService {
 	
 	
 	public List<MstGroup> getAllMstGroup() {
-		return mstGroupRepository.findAll();
+		List<MstGroup> mstGroupList = mstGroupRepository.findAll();
+		if(mstGroupList.isEmpty()) {
+			throw new IllegalStateException("list MstGroup must not be empty");
+		}
+		return mstGroupList;
 	}
 
 	public MstGroup findById(Integer groupId) {

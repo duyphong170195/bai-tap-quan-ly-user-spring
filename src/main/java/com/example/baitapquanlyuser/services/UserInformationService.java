@@ -24,41 +24,41 @@ public class UserInformationService {
 //		Preconditions.checkNotNull(sortNameValue, "sortNameValue must not be null");
 //		Preconditions.checkNotNull(sortLevelValue, "sortLevelValue must not be null");
 //		Preconditions.checkNotNull(sortDateValue, "sortDateValue must not be null");
-		String sortValue ="";
+		String sortValue = sortNameValue;
 		switch (action.toLowerCase()) {
 			case "search":
 				if (Common.isNumber(groupId) == false) {
 					groupId = "0";
 				}
 				break;
-			case "sort":
-				if(sortType.matches("fullName")){
-					if(sortNameValue.toUpperCase().equals("ASC")){
-						sortValue = "DESC";
-					}else {
-						sortValue = "ASC";
-					}
-				} else if(sortType.equals("nameLevel")){
-					if(sortLevelValue.toUpperCase().equals("ASC")){
-						sortValue = "DESC";
-					}else {
-						sortValue = "ASC";
-					}
-				} else if(sortType.equals("endDate")) {
-					if(sortDateValue.toUpperCase().equals("DESC")){
-						sortValue = "ASC";
-					}else {
-						sortValue = "DESC";
-					}
-				}
-				break;
+//			case "sort":
+//				if(sortType.matches("fullName")){
+//					if(sortNameValue.toUpperCase().equals("ASC")){
+//						sortValue = "DESC";
+//					}else {
+//						sortValue = "ASC";
+//					}
+//				} else if(sortType.equals("nameLevel")){
+//					if(sortLevelValue.toUpperCase().equals("ASC")){
+//						sortValue = "DESC";
+//					}else {
+//						sortValue = "ASC";
+//					}
+//				} else if(sortType.equals("endDate")) {
+//					if(sortDateValue.toUpperCase().equals("DESC")){
+//						sortValue = "ASC";
+//					}else {
+//						sortValue = "DESC";
+//					}
+//				}
+//				break;
 			case "pagination":
 				break;
 		}
 		return tblDetailUserJapanRepository.findAllUser(fullName, Common.toInteger(groupId), sortType, sortValue);
 	}
 
-	public List<UserInformation> getListUsersInformation(String fullName, String groupId){
+	public List<UserInformation> getListUsersInformation(String fullName, String groupId, String sortType, String sortValue){
 
 		return tblDetailUserJapanRepository.findAllUser(fullName, Common.toInteger(groupId));
 	}
