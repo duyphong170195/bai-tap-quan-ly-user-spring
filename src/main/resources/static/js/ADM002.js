@@ -1,8 +1,12 @@
 $(document).ready(function () {
-    var action = "";
+    var sortType = "";
     var sortingFullNameValue = "ASC";
     var sortingLevelValue = "ASC";
     var sortingEndDateValue = "DESC";
+    var totalUsers = 0;
+    var limitUser = 3;
+    var limitPage = 3;
+    var currentPage = 1;
     var fullName = "";
     var groupName = "";
 
@@ -21,133 +25,142 @@ $(document).ready(function () {
             alert(error.apierror.message);
         }
     }).then(function () {
+        ajaxCallGettingUser("", 0, "", "", "");
+    }).then(function () {
         $.ajax({
             type: "GET",
             contentType: "application/json",
-            url: "/listUserRest",
-            data: {
-                full_name: "",
-                group_id: 0
-            },
-            dataType: 'json',
+            url: "/getTotalUser",
             success: function (data) {
-                var $tr = "";
-                jQuery.each(data, function (index, value) {
-                    $tr = $tr + "<tr>"
-                        + "<td>" + value.user_id + "</td>"
-                        + "<td>" + value.full_name + "</td>"
-                        + "<td>" + value.birthday + "</td>"
-                        + "<td>" + value.group_name + "</td>"
-                        + "<td>" + value.email + "</td>"
-                        + "<td>" + value.telephone + "</td>"
-                        + "<td>" + value.name_level + "</td>"
-                        + "<td>" + value.end_date + "</td>"
-                        + "<td>" + value.total + "</td>"
-                        + "</tr>";
-                });
-                $('#tbl_body_id').html($tr);
+                totalUsers = data;
+            },
+            error: function (e) {
+                var error = JSON.parse(e.responseText);
+                alert(error.apierror.message);
             }
-        });
+        })
     });
 
     $('#btn_search').click(function (event) {
         //stop submit the form, we will post it manually.
         event.preventDefault();
-        action = "search";
         $("#btn_search").prop("disabled", false);
 
-        var full_name = $('#full_name').val();
-        var group_id = $('#group_id').val();
-
-        $.ajax({
-            type: "GET",
-            contentType: "application/json",
-            url: "/listUserRest",
-            data: {
-                full_name: full_name,
-                group_id: group_id
-            },
-            dataType: 'json',
-            timeout: 100000,
-            success: function (data) {
-                var $tr = "";
-                jQuery.each(data, function (index, value) {
-                    $tr = $tr + "<tr>"
-                        + "<td>" + value.user_id + "</td>"
-                        + "<td>" + value.full_name + "</td>"
-                        + "<td>" + value.birthday + "</td>"
-                        + "<td>" + value.group_name + "</td>"
-                        + "<td>" + value.email + "</td>"
-                        + "<td>" + value.telephone + "</td>"
-                        + "<td>" + value.name_level + "</td>"
-                        + "<td>" + value.end_date + "</td>"
-                        + "<td>" + value.total + "</td>"
-                        + "</tr>";
-                });
-                $('#tbl_body_id').html($tr);
-                $("#btn-login").prop("disabled", false);
-            },
-            error: function (e) {
-                alert(e.message);
-            }
-        });
+       getSearchingValue();
+       ajaxCallGettingUser(fullName, groupName, "", "", "");
     });
-
+    
     $("#sortFullName").click(function (e) {
-        action = "sort";
+        sortType = "fullName";
         e.preventDefault();
-        var full_name = $('#full_name').val();
-        var group_id = $('#group_id').val();
-        var sort_value = changeSortValue(sortingFullNameValue);
-        $.ajax({
+        getSearchingValue();
+        ajaxCallGettingUser(fullName, groupName, sortType, sortingFullNameValue, "#sortFullName");
+    });
+
+    $("#sortNameLevel").click(function (e) {
+        sortType = "nameLevel";
+        e.preventDefault();
+        getSearchingValue();
+        ajaxCallGettingUser(fullName, groupName, sortType, sortingLevelValue, "#sortNameLevel");
+    });
+
+    $("#sortEndDate").click(function (e) {
+        sortType = "endDate";
+        e.preventDefault();
+        getSearchingValue();
+        ajaxCallGettingUser(fullName, groupName, sortType, sortingEndDateValue, "#sortEndDate");
+    });
+
+    var ajaxCallGettingUser = function (fullName, groupName, sortType, sortingValue, idSort) {
+        return $.ajax({
             type: "GET",
             contentType: "application/json",
             url: "/listUserRest",
             data: {
-                action: "sort",
-                full_name: full_name,
-                group_id: group_id,
-                sort_type: "fullName",
-                sort_value: sort_value
+                full_name: fullName,
+                group_id: groupName,
+                sort_type: sortType,
+                sort_value: changeSortValue(sortType, sortingValue, idSort),
+                current_page: currentPage,
+                limit_user: limitUser
             },
             dataType: 'json',
-            timeout: 100000,
-            success: function (data) {
-                var $tr = '';
-                jQuery.each(data, function (index, value) {
-                    $tr = $tr + "<tr>"
-                        + "<td>" + value.user_id + "</td>"
-                        + "<td>" + value.full_name + "</td>"
-                        + "<td>" + value.birthday + "</td>"
-                        + "<td>" + value.group_name + "</td>"
-                        + "<td>" + value.email + "</td>"
-                        + "<td>" + value.telephone + "</td>"
-                        + "<td>" + value.name_level + "</td>"
-                        + "<td>" + value.end_date + "</td>"
-                        + "<td>" + value.total + "</td>"
-                        + "</tr>";
-                });
-                $('#tbl_body_id').html($tr);
-            },
-            error: function (e) {
-                alert(e.message);
-            }
+            timeout: 100000
+        }).done(function (data) {
+            var $tr = '';
+            jQuery.each(data, function (index, value) {
+                $tr = $tr + "<tr>"
+                    + "<td>" + value.user_id + "</td>"
+                    + "<td>" + value.full_name + "</td>"
+                    + "<td>" + value.birthday + "</td>"
+                    + "<td>" + value.group_name + "</td>"
+                    + "<td>" + value.email + "</td>"
+                    + "<td>" + value.telephone + "</td>"
+                    + "<td>" + value.name_level + "</td>"
+                    + "<td>" + value.end_date + "</td>"
+                    + "<td>" + value.total + "</td>"
+                    + "</tr>";
+            });
+            $('#tbl_body_id').html($tr);
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            // If fail
+            console.log(textStatus + ': ' + errorThrown);
         });
-    });
+    };
 
-    function handleClickingAction(actionClick) {
-        switch (actionClick) {
-            case "search":
+    function getSearchingValue(){
+        fullName = $('#full_name').val();
+        groupName = $('#group_id').val();
+    }
 
+    function changeSortValue(sortType, sortValue, idSort) {
+        sortingFullNameValue = "ASC";
+        sortingLevelValue = "ASC";
+        sortingEndDateValue = "DESC";
+        switch (sortType) {
+            case "fullName":
+                $("#sortNameLevel").text("▲▽");
+                $("#sortEndDate").text("△▼");
+                if (sortValue === "DESC") {
+                    $(idSort).text("▲▽");
+                    return sortingFullNameValue = "ASC"
+                } else {
+                    $(idSort).text("△▼");
+                    return sortingFullNameValue = "DESC";
+                }
+                break;
+            case "nameLevel":
+                $("#sortFullName").text("▲▽");
+                $("#sortEndDate").text("△▼");
+                if (sortValue === "DESC") {
+                    $(idSort).text("▲▽");
+                    return sortingLevelValue = "ASC"
+                } else {
+                    $(idSort).text("△▼");
+                    return sortingLevelValue = "DESC";
+                }
+                break;
+            case "endDate":
+                $("#sortFullName").text("▲▽");
+                $("#sortNameLevel").text("▲▽");
+                if (sortValue === "DESC") {
+                    $(idSort).text("▲▽");
+                    return sortingEndDateValue = "ASC"
+                } else {
+                    $(idSort).text("△▼");
+                    return sortingEndDateValue = "DESC";
+                }
+                break;
+            default:
+                $("#sortFullName").text("▲▽");
+                $("#sortNameLevel").text("▲▽");
+                $("#sortEndDate").text("△▼");
+                break;
         }
     }
 
-    function changeSortValue(sortValue) {
-        if (sortValue === "DESC") {
-            return sortingFullNameValue = "ASC";
-        } else {
-            return sortingFullNameValue = "DESC";
-        }
+    function getTotalPage(totalUser, limitUser) {
+        return Math.ceil(totalUser/limitUser);
     }
 });
 

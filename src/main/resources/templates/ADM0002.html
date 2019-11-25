@@ -1,6 +1,6 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="../css/style.css" rel="stylesheet" type="text/css" />
@@ -75,7 +75,7 @@
                 ID
             </th>
             <th align="left">
-                氏名 <a href = "" id="sortFullName">▲▽</a>
+                氏名 <a href = "" id="sortFullName" class="sort">>▲▽</a>
             </th>
             <th align="left">
                 生年月日
@@ -90,10 +90,10 @@
                 電話番号
             </th>
             <th align="left">
-                日本語能力  <a href = "">▲▽</a>
+                日本語能力  <a href = "" id="sortNameLevel" class="sort">▲▽</a>
             </th>
             <th align="left">
-                失効日 <a href = "">△▼</a>
+                失効日 <a href = "" id="sortEndDate" class="sort">△▼</a>
             </th>
             <th align="left">
                 点数

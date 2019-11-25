@@ -41,30 +41,29 @@ public class UserInformationController {
 			@RequestParam(value = "sortNameValue", defaultValue = "ASC") String sortNameValue,
 			@RequestParam(value = "sortLevelValue", defaultValue = "ASC") String sortLevelValue,
 			@RequestParam(value = "sortDateValue", defaultValue = "DESC") String sortDateValue) {
-		try {
-			HttpSession session = req.getSession();
-			List<UserInformation> userInformationList =
-					userInformationService.getListUsersInformation(action, fullName, groupId, sortType, sortNameValue, sortLevelValue, sortDateValue);
-			List<MstGroup> mstGroupList = mstGroupService.getAllMstGroup();
-			model.addAttribute("userInformationList", userInformationList);
-			model.addAttribute("mstGroupList", mstGroupList);
-			model.addAttribute("groupId", Common.toInteger(groupId));
-			model.addAttribute("fullName", fullName);
-			model.addAttribute("sortType", sortType);
-			model.addAttribute("sortNameValue", sortNameValue);
-			model.addAttribute("sortLevelValue", sortLevelValue);
-			model.addAttribute("sortDateValue", sortDateValue);
-			return "ADM002";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "index";
-		}
+//		try {
+//			HttpSession session = req.getSession();
+//			List<UserInformation> userInformationList =
+//					userInformationService.getListUsersInformation(action, fullName, groupId, sortType, sortNameValue, sortLevelValue, sortDateValue);
+//			List<MstGroup> mstGroupList = mstGroupService.getAllMstGroup();
+//			model.addAttribute("userInformationList", userInformationList);
+//			model.addAttribute("mstGroupList", mstGroupList);
+//			model.addAttribute("groupId", Common.toInteger(groupId));
+//			model.addAttribute("fullName", fullName);
+//			model.addAttribute("sortType", sortType);
+//			model.addAttribute("sortNameValue", sortNameValue);
+//			model.addAttribute("sortLevelValue", sortLevelValue);
+//			model.addAttribute("sortDateValue", sortDateValue);
+//			return "ADM002";
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return "index";
+//		}
+		return "ADM002";
 	}
 
 	@RequestMapping(value = "/listUser", method = RequestMethod.GET)
 	public String getListUser(){
-
-
 		return "ADM0002";
 	}
 

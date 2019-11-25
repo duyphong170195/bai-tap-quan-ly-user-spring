@@ -78,9 +78,9 @@
 		</th>
 		<th align="left">
 			氏名 <a th:if="${sortNameValue eq 'DESC'}" th:href="@{/listUser(action='sort', sortType='fullName', sortNameValue='ASC', fullName=${fullName}, groupId=${groupId})}">△▼</a>
-			<a th:unless="${sortNameValue eq 'DESC'}" th:href="@{/listUser(action='sort', sortType='fullName', sortNameValue='DESC', fullName=${fullName}, groupId=${groupId})}">▲▽</a>
 		</th>
-		<th align="left">
+        <a th:unless="${sortNameValue eq 'DESC'}" th:href="@{/listUser(action='sort', sortType='fullName', sortNameValue='DESC', fullName=${fullName}, groupId=${groupId})}">▲▽</a>
+        <th align="left">
 			生年月日
 		</th>
 		<th align="left">

@@ -15,8 +15,10 @@ public class UserInformationService {
 	TblDetailUserJapanRepository tblDetailUserJapanRepository;
 	
 	
-	public List<UserInformation> getListUsersInformation(String action, String fullName, String groupId,
-			String sortType, String sortNameValue, String sortLevelValue, String sortDateValue) {
+	public List<UserInformation> getListUsersInformation(String fullName, String groupId,
+			String sortType, String sortValue, int currentPage, int limitUser) {
+
+		int offset = Common.getOffset(currentPage, limitUser);
 //		Preconditions.checkNotNull(action, "action must not be null");
 //		Preconditions.checkNotNull(fullName, "fullName must not be null");
 //		Preconditions.checkNotNull(groupId, "groupId must not be null");
@@ -24,13 +26,6 @@ public class UserInformationService {
 //		Preconditions.checkNotNull(sortNameValue, "sortNameValue must not be null");
 //		Preconditions.checkNotNull(sortLevelValue, "sortLevelValue must not be null");
 //		Preconditions.checkNotNull(sortDateValue, "sortDateValue must not be null");
-		String sortValue = sortNameValue;
-		switch (action.toLowerCase()) {
-			case "search":
-				if (Common.isNumber(groupId) == false) {
-					groupId = "0";
-				}
-				break;
 //			case "sort":
 //				if(sortType.matches("fullName")){
 //					if(sortNameValue.toUpperCase().equals("ASC")){
@@ -52,14 +47,13 @@ public class UserInformationService {
 //					}
 //				}
 //				break;
-			case "pagination":
-				break;
-		}
-		return tblDetailUserJapanRepository.findAllUser(fullName, Common.toInteger(groupId), sortType, sortValue);
+//			case "pagination":
+//				break;
+//		}
+		return tblDetailUserJapanRepository.findAllUser(fullName, Common.toInteger(groupId), sortType, sortValue, limitUser, offset);
 	}
 
-	public List<UserInformation> getListUsersInformation(String fullName, String groupId, String sortType, String sortValue){
-
-		return tblDetailUserJapanRepository.findAllUser(fullName, Common.toInteger(groupId));
+	public Integer getTotalUsers(String fullName, String groupId) {
+		return tblDetailUserJapanRepository.countTotalUsers(fullName, Common.toInteger(groupId));
 	}
 }
