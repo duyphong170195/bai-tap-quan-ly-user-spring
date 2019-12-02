@@ -1,5 +1,7 @@
 package com.example.baitapquanlyuser.restcontrollers;
 
+import com.example.baitapquanlyuser.model.PageUserModel;
+import com.example.baitapquanlyuser.model.SearchData;
 import com.example.baitapquanlyuser.model.UserInformation;
 import com.example.baitapquanlyuser.services.MstGroupService;
 import com.example.baitapquanlyuser.services.UserInformationService;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -26,23 +29,16 @@ public class UserInformationRestController {
     MstGroupService mstGroupService;
 
     @RequestMapping(value = "/listUserRest", method = RequestMethod.GET)
-    public ResponseEntity<List<UserInformation>> getListUser(
-            @RequestParam(value = "full_name", defaultValue = "") String fullName,
-            @RequestParam(value = "group_id", defaultValue = "0") String groupId,
-            @RequestParam(value = "sort_type", defaultValue = "") String sortType,
-            @RequestParam(value = "sort_value", defaultValue = "ASC") String sortValue,
-            @RequestParam(value = "current_page", defaultValue = "1") String currentPage,
-            @RequestParam(value = "limit_user", defaultValue = "3") String limitUser) {
-        List<UserInformation> userInformationList =
-                userInformationService.getListUsersInformation(fullName, groupId, sortType, sortValue, Common.toInteger(currentPage), Common.toInteger(limitUser));
+    public ResponseEntity<PageUserModel> getListUser(SearchData searchData) {
+        PageUserModel pageUserModel = userInformationService.getListUsersInformation(searchData);
 
-        return ResponseEntity.ok(userInformationList);
+        return ResponseEntity.ok(pageUserModel);
     }
 
     @RequestMapping(value = "/getTotalUser", method = RequestMethod.GET)
     public ResponseEntity<Integer> getTotalUser(
             @RequestParam(value = "full_name", defaultValue = "") String fullName,
-            @RequestParam(value = "group_id", defaultValue = "0") String groupId){
+            @RequestParam(value = "group_id", defaultValue = "0") String groupId) {
         Integer totalUsers = userInformationService.getTotalUsers(fullName, groupId);
         return ResponseEntity.ok(totalUsers);
     }

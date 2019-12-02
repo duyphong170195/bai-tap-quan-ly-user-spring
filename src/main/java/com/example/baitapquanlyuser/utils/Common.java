@@ -20,31 +20,29 @@ import java.util.List;
 
 public class Common {
 	
-//	/**
-//	 * Lấy danh sách các trang cần hiển thị ở chuỗi paging theo trang hiện tại.
-//	 * @param totalUser : Số user hiện có
-//	 * @param limit : số user hiển thị trên 1 trang
-//	 * @param currentPage : Trang hiện tại
-//	 * @return list trang theo trang hiện tại
-//	 */
-//	public static List<Integer> getListPaging(int totalUser, int limit, int currentPage){
-//		ArrayList<Integer> listPaging = new ArrayList<Integer>();
-//		//tính tổng số page
-//		int totalPage = getTotalPage(totalUser, limit);
-//		//Số trang muốn hiển thị trong một listPaging
-//		int limitPage  = Integer.parseInt(ConfigProperties.getData(CommonConstant.LIMIT_PAGE));
-//		//Lấy trang đầu tiên trong một offset
-//		int firstPage = getFirstPage(currentPage, limitPage);
-//		//Lấy trang cuối trong một offset
-//		int endPage = getEndPage(currentPage, limitPage, totalPage);
-//
-//		for(int i = firstPage ; i <= endPage ; i++){
-//			listPaging.add(i);
-//		}
-//
-//		return listPaging;
-//
-//	}
+	/**
+	 * Lấy danh sách các trang cần hiển thị ở chuỗi paging theo trang hiện tại.
+	 * @param totalUser : Số user hiện có
+	 * @param limit : số user hiển thị trên 1 trang
+	 * @param currentPage : Trang hiện tại
+	 * @return list trang theo trang hiện tại
+	 */
+	public static List<Integer> getListPaging(int totalUser, int limit, int currentPage, int limitPage){
+		ArrayList<Integer> listPaging = new ArrayList<Integer>();
+		//tính tổng số page
+		int totalPage = getTotalPage(totalUser, limit);
+		//Lấy trang đầu tiên trong một offset
+		int firstPage = getFirstPage(currentPage, limitPage);
+		//Lấy trang cuối trong một offset
+		int endPage = getEndPage(currentPage, limitPage, totalPage);
+
+		for(int i = firstPage ; i <= endPage ; i++){
+			listPaging.add(i);
+		}
+
+		return listPaging;
+
+	}
 	/**
 	 * Lấy trang đầu tiên của listPaging được giới hạn bởi limitPage
 	 * @param currentPage :Trang hiện tại

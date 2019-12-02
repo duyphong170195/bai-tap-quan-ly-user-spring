@@ -1,5 +1,7 @@
 package com.example.baitapquanlyuser.model;
 
+import org.springframework.data.domain.Page;
+
 public class PagerModel {
 	
 	private int buttonsToShow = 5;
@@ -7,6 +9,7 @@ public class PagerModel {
 	private int startPage;
 	
 	private int endPage;
+	Page page;
 	
 	
 	public PagerModel(int totalPages, int currentPage, int buttonsToShow) {
