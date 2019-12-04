@@ -15,6 +15,7 @@ public class PageUserModel {
     private int totalUser;
     private int limitUser = 3;
     private int limitPage = 3;
+    private int totalPage;
     private List<UserInformation> listUser;
     private SearchData searchData;
     private List<Integer> listPage;

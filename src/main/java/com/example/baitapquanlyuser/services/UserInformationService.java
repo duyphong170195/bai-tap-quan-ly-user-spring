@@ -18,9 +18,10 @@ public class UserInformationService {
 
 
     //	public PageUserModel getListUsersInformation(String fullName, int groFupId, String sortType, String sortValue, int currentPage) {
-    public PageUserModel getListUsersInformation(SearchData searchData) {
+    public PageUserModel
+
+    getListUsersInformation(SearchData searchData) {
         PageUserModel pageUserModel = new PageUserModel();
-        int offset = Common.getOffset(searchData.getCurrentPage(), pageUserModel.getLimitUser());
         String action = searchData.getAction();
         String fullName = searchData.getFullName();
         String groupId = searchData.getGroupId();
@@ -30,6 +31,7 @@ public class UserInformationService {
         boolean nextPage = searchData.isNext();
 		boolean previousPage = searchData.isPrevious();
 		int limitPage = pageUserModel.getLimitPage();
+		int totalUser = tblDetailUserJapanRepository.countTotalUsers(fullName, Common.toInteger(groupId));
 //		Preconditions.checkNotNull(action, "action must not be null");
 //		Preconditions.checkNotNull(fullName, "fullName must not be null");
 //		Preconditions.checkNotNull(groupId, "groupId must not be null");
@@ -37,6 +39,8 @@ public class UserInformationService {
 //		Preconditions.checkNotNull(sortNameValue, "sortNameValue must not be null");
 //		Preconditions.checkNotNull(sortLevelValue, "sortLevelValue must not be null");
 //		Preconditions.checkNotNull(sortDateValue, "sortDateValue must not be null");
+		boolean hiddenPrevious = true;
+		boolean hiddenNext = true;
 		switch (action){
 			case "search":
 				sortType = "";
@@ -71,14 +75,22 @@ public class UserInformationService {
 				}
 				break;
 		}
-
-
-		SearchData searchDataBuilder = new SearchData(action, fullName, groupId, sortType, sortValue, currentPage, nextPage, previousPage);
+		int offset = Common.getOffset(currentPage, pageUserModel.getLimitUser());
+		int totalPage = Common.getTotalPage(totalUser, pageUserModel.getLimitUser());
+		// handle displaying next, previous
+        if(Common.getFirstPage(currentPage + limitPage, limitPage) < totalPage){
+            hiddenNext = false;
+        }
+        if (currentPage - limitPage >= 1) {
+            hiddenPrevious = false;
+        }
+		SearchData searchDataBuilder = new SearchData(action, fullName, groupId, sortType, sortValue, currentPage, nextPage, previousPage, hiddenPrevious, hiddenNext);
 		List<UserInformation> userInformationList = tblDetailUserJapanRepository.findAllUser(fullName, Common.toInteger(groupId), sortType, sortValue, pageUserModel.getLimitUser(), offset);
 		pageUserModel.setSearchData(searchDataBuilder);
 		pageUserModel.setListUser(userInformationList);
-		pageUserModel.setTotalUser(tblDetailUserJapanRepository.countTotalUsers(fullName, Common.toInteger(groupId)));
+		pageUserModel.setTotalUser(totalUser);
 		pageUserModel.setListPage(pageUserModel.getListPaging());
+
         return pageUserModel;
     }
 

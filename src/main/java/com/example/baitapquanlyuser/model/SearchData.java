@@ -16,4 +16,6 @@ public class SearchData {
     private int currentPage;
     private boolean next;
     private boolean previous;
+    boolean hiddenPrevious;
+    boolean hiddenNext;
 }

@@ -29,19 +29,6 @@ $(document).ready(function () {
         }
     }).then(function () {
         ajaxCallGettingUser("","", 0, "", "", "", 1, false, false);
-    }).then(function () {
-        $.ajax({
-            type: "GET",
-            contentType: "application/json",
-            url: "/getTotalUser",
-            success: function (data) {
-                totalUsers = data;
-            },
-            error: function (e) {
-                var error = JSON.parse(e.responseText);
-                alert(error.apierror.message);
-            }
-        })
     });
 
     $('#btn_search').click(function (event) {
@@ -122,6 +109,7 @@ $(document).ready(function () {
             dataType: 'json',
             timeout: 100000
         }).done(function (data) {
+            totalUsers = data.totalUser;
             currentPage1 = data.searchData.currentPage;
             changeIconSort(data.searchData.sortType, data.searchData.sortValue, idSort);
             var $tr = '';
@@ -139,15 +127,24 @@ $(document).ready(function () {
                     + "</tr>";
             });
             $('#tbl_body_id').html($tr);
-
-
             var $a = '';
             jQuery.each(data.listPage, function (index, value) {
                 $a = $a  + "<a href='#' id=page"+ index + ">"+ value + "</a>";
                 // $("#page" + index).text(value);
             });
-            $('.lbl_paging').html($a);
+            $('#lbl_paging').html($a);
             handlePage();
+            if(data.searchData.hiddenPrevious) {
+                $('#previous').hide();
+            }else {
+                $('#previous').show();
+            }
+
+            if(data.searchData.hiddenNext) {
+                $('#next').hide();
+            }else {
+                $('#next').show();
+            }
         }).fail(function(jqXHR, textStatus, errorThrown) {
             // If fail
             console.log(textStatus + ': ' + errorThrown);
