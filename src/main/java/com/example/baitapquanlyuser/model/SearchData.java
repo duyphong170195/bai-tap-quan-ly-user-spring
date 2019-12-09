@@ -12,7 +12,9 @@ public class SearchData {
     private String fullName;
     private String groupId;
     private String sortType;
-    private String sortValue;
+    private String sortNameValue;
+    private String sortLevelValue;
+    private String sortEndDateValue;
     private int currentPage;
     private boolean next;
     private boolean previous;

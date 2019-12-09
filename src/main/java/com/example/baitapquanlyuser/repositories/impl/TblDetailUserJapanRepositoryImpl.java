@@ -19,7 +19,7 @@ public class TblDetailUserJapanRepositoryImpl implements TblDetailUserJapanRepos
 	
 	
 	@Override
-	public List<UserInformation> findAllUser(String fullName, int groupId, String sortType, String sortValue, int limitUser, int offset) {
+	public List<UserInformation> findAllUser(String fullName, int groupId, String sortType, String sortNameValue, String sortLevelValue, String sortEndDateValue, int limitUser, int offset) {
 //		Preconditions.checkNotNull(fullName, "fullName must not be null");
 //		Preconditions.checkNotNull(sortType, "sortType must not be null");
 
@@ -40,17 +40,17 @@ public class TblDetailUserJapanRepositoryImpl implements TblDetailUserJapanRepos
 		}
 		sortValue = Common.replaceWildcard(sortValue);
 		switch (sortType){
-			case "fullName":
+			case "sortFullName":
 				queryStatement.append("ORDER BY tblUser.fullName "+ sortValue +", ");
 				queryStatement.append("mstJapan.nameLevel ASC, ");
 				queryStatement.append("tblDetail.endDate DESC ");
 				break;
-			case "nameLevel":
+			case "sortNameLevel":
 				queryStatement.append("ORDER BY mstJapan.nameLevel "+ sortValue +", ");
 				queryStatement.append("tblUser.fullName ASC, ");
 				queryStatement.append("tblDetail.endDate DESC ");
 				break;
-			case "endDate":
+			case "sortEndDate":
 				queryStatement.append("ORDER BY tblDetail.endDate "+ sortValue +", ");
 				queryStatement.append("tblUser.fullName ASC, ");
 				queryStatement.append("mstJapan.nameLevel ASC ");

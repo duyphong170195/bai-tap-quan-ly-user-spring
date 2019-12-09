@@ -26,7 +26,9 @@ public class UserInformationService {
         String fullName = searchData.getFullName();
         String groupId = searchData.getGroupId();
         String sortType = searchData.getSortType();
-        String sortValue = searchData.getSortValue();
+        String sortNameValue = searchData.getSortNameValue();
+        String sortLevelValue = searchData.getSortLevelValue();
+        String sortEndDateValue = searchData.getSortEndDateValue();
         int currentPage = searchData.getCurrentPage();
         boolean nextPage = searchData.isNext();
 		boolean previousPage = searchData.isPrevious();
@@ -36,34 +38,41 @@ public class UserInformationService {
 //		Preconditions.checkNotNull(fullName, "fullName must not be null");
 //		Preconditions.checkNotNull(groupId, "groupId must not be null");
 //		Preconditions.checkNotNull(sortType, "sortType must not be null");
-//		Preconditions.checkNotNull(sortNameValue, "sortNameValue must not be null");
-//		Preconditions.checkNotNull(sortLevelValue, "sortLevelValue must not be null");
-//		Preconditions.checkNotNull(sortDateValue, "sortDateValue must not be null");
+//		Preconditions.checkNotNull(sortValue, "sortNameValue must not be null");
 		boolean hiddenPrevious = true;
 		boolean hiddenNext = true;
 		switch (action){
 			case "search":
 				sortType = "";
+				currentPage = 1;
+                sortNameValue = "ASC";
+                sortLevelValue = "ASC";
+                sortEndDateValue = "DESC";
 				break;
 			case "sort":
-				sortValue = Common.replaceWildcard(sortValue);
-				if(sortType.matches("fullName")){
-					if(sortValue.toUpperCase().equals("ASC")){
-						sortValue = "DESC";
+				if(sortType.matches("sortFullName")){
+                    sortLevelValue = "ASC";
+                    sortEndDateValue = "DESC";
+					if(sortNameValue.toUpperCase().equals("ASC")){
+                        sortNameValue = "DESC";
 					}else {
-						sortValue = "ASC";
+                        sortNameValue = "ASC";
 					}
-				} else if(sortType.equals("nameLevel")){
-					if(sortValue.toUpperCase().equals("ASC")){
-						sortValue = "DESC";
+				} else if(sortType.equals("sortNameLevel")){
+                    sortNameValue = "ASC";
+                    sortEndDateValue = "DESC";
+					if(sortLevelValue.toUpperCase().equals("ASC")){
+                        sortLevelValue = "DESC";
 					}else {
-						sortValue = "ASC";
+                        sortLevelValue = "ASC";
 					}
-				} else if(sortType.equals("endDate")) {
-					if(sortValue.toUpperCase().equals("DESC")){
-						sortValue = "ASC";
+				} else if(sortType.equals("sortEndDate")) {
+                    sortNameValue = "ASC";
+                    sortLevelValue = "ASC";
+					if(sortEndDateValue.toUpperCase().equals("DESC")){
+                        sortEndDateValue = "ASC";
 					}else {
-						sortValue = "DESC";
+                        sortEndDateValue = "DESC";
 					}
 				}
 				break;
@@ -84,13 +93,12 @@ public class UserInformationService {
         if (currentPage - limitPage >= 1) {
             hiddenPrevious = false;
         }
-		SearchData searchDataBuilder = new SearchData(action, fullName, groupId, sortType, sortValue, currentPage, nextPage, previousPage, hiddenPrevious, hiddenNext);
+		SearchData searchDataBuilder = new SearchData(action, fullName, groupId, sortType, sortNameValue, sortLevelValue, sortEndDateValue, currentPage, nextPage, previousPage, hiddenPrevious, hiddenNext);
 		List<UserInformation> userInformationList = tblDetailUserJapanRepository.findAllUser(fullName, Common.toInteger(groupId), sortType, sortValue, pageUserModel.getLimitUser(), offset);
 		pageUserModel.setSearchData(searchDataBuilder);
 		pageUserModel.setListUser(userInformationList);
 		pageUserModel.setTotalUser(totalUser);
 		pageUserModel.setListPage(pageUserModel.getListPaging());
-
         return pageUserModel;
     }
 

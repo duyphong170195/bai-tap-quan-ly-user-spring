@@ -31,7 +31,6 @@ public class UserInformationRestController {
     @RequestMapping(value = "/listUserRest", method = RequestMethod.GET)
     public ResponseEntity<PageUserModel> getListUser(SearchData searchData) {
         PageUserModel pageUserModel = userInformationService.getListUsersInformation(searchData);
-
         return ResponseEntity.ok(pageUserModel);
     }
 

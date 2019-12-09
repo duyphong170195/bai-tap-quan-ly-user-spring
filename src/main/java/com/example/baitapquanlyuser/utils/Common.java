@@ -409,6 +409,9 @@ public class Common {
 	 * @return : chuỗi đã được replace
 	 */
 	public static String replaceWildcard(String data) {
+		if(data == null) {
+			return "";
+		}
 		data = //data.replace("\"", "\"").
 				data.replace("\\", "\\\\").replace("_", "\\_").replace("%", "\\%");
 		return data;
