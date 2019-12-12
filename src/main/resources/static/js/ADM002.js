@@ -3,15 +3,9 @@ $(document).ready(function () {
     var sortingFullNameValue = "ASC";
     var sortingLevelValue = "ASC";
     var sortingEndDateValue = "DESC";
-    var sortValue = "";
-    var totalUsers = 0;
-    var limitUser = 3;
-    var limitPage = 3;
-    var currentPage1 = 1;
+    var currentPage = 1;
     var fullName = "";
     var groupName = "";
-    var next = false;
-    var previous = false;
 
     $.ajax({
         type: "GET",
@@ -28,33 +22,23 @@ $(document).ready(function () {
             alert(error.apierror.message);
         }
     }).then(function () {
-        ajaxCallGettingUser("","", 0, "", "", "", 1, false, false);
+        ajaxCallGettingUser("", "", "", "", "", "", "", 1, false, false);
     });
 
     $('#btn_search').click(function (event) {
         //stop submit the form, we will post it manually.
         event.preventDefault();
         $("#btn_search").prop("disabled", false);
-       getSearchingValue();
-       ajaxSearchUser("search", fullName, groupName);
-       // ajaxCallGettingUser("search", fullName, groupName, "", "", "", 1,false, false);
+        getSearchingValue();
+        ajaxCallGettingUser("search", fullName, groupName, "", "", "", "", 1, false, false);
     });
 
     $(".sort").click(function (e) {
         var kindOfSort = $(this).attr('id');
-        switch (kindOfSort) {
-            case "sortFullName": sortValue = sortingFullNameValue;
-                break;
-            case "sortNameLevel": sortValue = sortingLevelValue;
-                break;
-            case "sortEndDate": sortValue = sortingEndDateValue;
-                break;
-        }
         e.preventDefault();
         getSearchingValue();
-        ajaxCallGettingUser("sort", fullName, groupName, kindOfSort, sortValue, "#" + kindOfSort, 1, false, false);
+        ajaxCallGettingUser("sort", fullName, groupName, kindOfSort, sortingFullNameValue, sortingLevelValue, sortingEndDateValue, 1, false, false);
     });
-
 
 
     // function handlePage(){
@@ -62,41 +46,16 @@ $(document).ready(function () {
         var pageNumberId = "#" + e.target.id;
         e.preventDefault();
         getSearchingValue();
-        if(pageNumberId === "#next") {
-            ajaxCallGettingUser("pagination", fullName, groupName, sortType, sortValue, "", currentPage1, true, false);
-        } else if(pageNumberId === "#previous") {
-            ajaxCallGettingUser("pagination", fullName, groupName, sortType, sortValue, "", currentPage1, false, true);
+        if (pageNumberId === "#next") {
+            ajaxCallGettingUser("pagination", fullName, groupName, sortType, sortingFullNameValue, sortingLevelValue, sortingEndDateValue, currentPage, true, false);
+        } else if (pageNumberId === "#previous") {
+            ajaxCallGettingUser("pagination", fullName, groupName, sortType, sortingFullNameValue, sortingLevelValue, sortingEndDateValue, currentPage, false, true);
         } else {
-            ajaxCallGettingUser("pagination", fullName, groupName, sortType, sortValue, "", $(pageNumberId).text(), false, false);
+            ajaxCallGettingUser("pagination", fullName, groupName, sortType, sortingFullNameValue, sortingLevelValue, sortingEndDateValue, $(pageNumberId).text(), false, false);
         }
     });
 
-
-    var ajaxSearchUser = function(action, fullName, groupName) {
-        return $.ajax({
-            type: "GET",
-            contentType: "application/json",
-            url: "/listUserRest",
-            data: {
-                action: action,
-                fullName: fullName,
-                groupId: groupName
-            },
-            dataType: 'json',
-            timeout: 100000
-        }).done(function (data) {
-            addRowUserToTable(data.listUser);
-            addPageToFooter(data.listPage);
-            hiddenOrShowNextPrevious(data.searchData);
-            totalUsers = data.totalUser;
-            currentPage1 = data.searchData.currentPage;
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            // If fail
-            console.log(textStatus + ': ' + errorThrown);
-        });
-    };
-
-    var ajaxCallGettingUser = function (action, fullName, groupName, sortType, sortingValue, idSort, currentPage, next, previous) {
+    var ajaxCallGettingUser = function (action, fullName, groupName, sortType, sortNameValueParameter, sortLevelValueParameter, sortEndDateValueParameter, currentPageParameter, next, previous) {
         return $.ajax({
             type: "GET",
             contentType: "application/json",
@@ -106,35 +65,37 @@ $(document).ready(function () {
                 fullName: fullName,
                 groupId: groupName,
                 sortType: sortType,
-                sortValue: sortingValue,
-                currentPage: currentPage,
+                sortNameValue: sortNameValueParameter,
+                sortLevelValue: sortLevelValueParameter,
+                sortEndDateValue: sortEndDateValueParameter,
+                currentPage: currentPageParameter,
                 next: next,
-                previous : previous
+                previous: previous
             },
             dataType: 'json',
             timeout: 100000
         }).done(function (data) {
+            setCurrentSortingValue(data.searchData.sortNameValue, data.searchData.sortLevelValue, data.searchData.sortEndDateValue);
+            changeIconSort(data.searchData.sortNameValue, data.searchData.sortLevelValue, data.searchData.sortEndDateValue);
             addRowUserToTable(data.listUser);
             addPageToFooter(data.listPage);
             hiddenOrShowNextPrevious(data.searchData);
-            totalUsers = data.totalUser;
-            currentPage1 = data.searchData.currentPage;
-            changeIconSort(data.searchData.sortType, data.searchData.sortValue);
-        }).fail(function(jqXHR, textStatus, errorThrown) {
+            currentPage = data.searchData.currentPage;
+        }).fail(function (jqXHR, textStatus, errorThrown) {
             // If fail
             console.log(textStatus + ': ' + errorThrown);
         });
     };
 
-    function getSearchingValue(){
+    function getSearchingValue() {
         fullName = $('#full_name').val();
         groupName = $('#group_id').val();
     }
 
-    function resetIconSort(){
-        $("#sortFullName").text("▲▽");
-        $("#sortNameLevel").text("▲▽");
-        $("#sortEndDate").text("△▼");
+    function setCurrentSortingValue(sortingFullNameValueParameter, sortingLevelValueParameter, sortingEndDateParameter) {
+        sortingFullNameValue = sortingFullNameValueParameter;
+        sortingLevelValue = sortingLevelValueParameter;
+        sortingEndDateValue = sortingEndDateParameter;
     }
 
     function addRowUserToTable(listUser) {
@@ -154,51 +115,44 @@ $(document).ready(function () {
         });
         $('#tbl_body_id').html($tr);
     }
+
     function addPageToFooter(listPage) {
         var $a = '';
         jQuery.each(listPage, function (index, value) {
-            $a = $a  + "<a href='#' id=page"+ index + ">"+ value + "</a>";
+            $a = $a + "<a href='#' id=page" + index + ">" + value + "</a>";
         });
         $('#pages_region').html($a);
     }
-    function hiddenOrShowNextPrevious(data){
-        if(data.hiddenPrevious) {
+
+    function hiddenOrShowNextPrevious(data) {
+        if (data.hiddenPrevious) {
             $('#previous').hide();
-        }else {
+        } else {
             $('#previous').show();
         }
-        if(data.hiddenNext) {
+        if (data.hiddenNext) {
             $('#next').hide();
-        }else {
+        } else {
             $('#next').show();
         }
     }
 
-    function changeIconSort(sortType, sortingValue) {
-        switch (sortType) {
-            case "sortFullName":
-                sortingFullNameValue = sortingValue;
-                sortingLevelValue = "ASC";
-                sortingEndDateValue = "DESC";
-                $("#sortNameLevel").text("▲▽");
-                $("#sortEndDate").text("△▼");
-                break;
-            case "sortNameLevel":
-                sortingLevelValue = sortingValue;
-                sortingFullNameValue = "ASC";
-                sortingEndDateValue = "DESC";
-                $("#sortFullName").text("▲▽");
-                $("#sortEndDate").text("△▼");
-                break;
-            case "sortEndDate":
-                sortingEndDateValue = sortingValue;
-                sortingFullNameValue = "ASC";
-                sortingLevelValue = "ASC";
-                $("#sortFullName").text("▲▽");
-                $("#sortNameLevel").text("▲▽");
-                break;
+    function changeIconSort(sortingFullNameValueParameter, sortingLevelValueParameter, sortingEndDateValueParameter) {
+        if (sortingFullNameValueParameter === "ASC") {
+            $("#sortFullName").text("▲▽");
+        } else {
+            $("#sortFullName").text("△▼");
         }
-        sortingValue === "DESC" ? $("#" + sortType).text("△▼"):$("#" + sortType).text("▲▽");
+        if (sortingLevelValueParameter === "ASC") {
+            $("#sortNameLevel").text("▲▽");
+        } else {
+            $("#sortNameLevel").text("△▼");
+        }
+        if (sortingEndDateValueParameter === "ASC") {
+            $("#sortEndDate").text("▲▽");
+        } else {
+            $("#sortEndDate").text("△▼");
+        }
     }
 });
 
