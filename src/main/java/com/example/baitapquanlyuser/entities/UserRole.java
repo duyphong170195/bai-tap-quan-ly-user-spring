@@ -18,12 +18,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "user_roles", catalog = "test",
-        uniqueConstraints = @UniqueConstraint(
-                columnNames = { "role", "user_id" }))
+@Table(name = "user_roles")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,4 +35,28 @@ public class UserRole {
     @Column(name = "role", length = 45, nullable = false)
     @NotNull
     private String role;
+
+    public Integer getUserRoleId() {
+        return userRoleId;
+    }
+
+    public void setUserRoleId(Integer userRoleId) {
+        this.userRoleId = userRoleId;
+    }
+
+    public TblUser getTblUser() {
+        return tblUser;
+    }
+
+    public void setTblUser(TblUser tblUser) {
+        this.tblUser = tblUser;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

@@ -1,6 +1,8 @@
 package com.example.baitapquanlyuser.repositories;
 
 import com.example.baitapquanlyuser.entities.MstGroup;
+import com.example.baitapquanlyuser.entities.TblUser;
+import com.example.baitapquanlyuser.entities.UserRole;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,10 @@ public class MstGroupRepositoryTest {
     MstGroupRepository mstGroupRepository;
     @Autowired
     TblDetailUserJapanRepository tblDetailUserJapanRepository;
+    @Autowired
+    TblUserRepository tblUserRepository;
+    @Autowired
+    UserRoleRepository userRoleRepository;
 
     @Test
     public void findAll(){
@@ -27,5 +33,13 @@ public class MstGroupRepositoryTest {
         if(a.isEmpty()){
             System.out.print("aaaaaaaaaaaaaaaaaaaHello world");
         }
+    }
+
+    @Test
+    public void findByLoginName(){
+
+        TblUser tblUser = tblUserRepository.findByUserName("admin");
+        tblUser.getLoginName();
+     userRoleRepository.findAll();
     }
 }

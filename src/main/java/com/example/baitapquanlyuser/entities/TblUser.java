@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +36,6 @@ import javax.validation.constraints.Size;
 @Table(name = "tbl_user")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class TblUser {
 	
 	@Id
@@ -86,6 +86,86 @@ public class TblUser {
 	@NotNull
 	private Date birthday;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tblUser")
-	private Set<UserRole> userRole = new HashSet<>(0);
+	@OneToMany(mappedBy="tblUser")
+	private Set<UserRole> userRole = new HashSet<>();
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public MstGroup getMstGroup() {
+		return mstGroup;
+	}
+
+	public void setMstGroup(MstGroup mstGroup) {
+		this.mstGroup = mstGroup;
+	}
+
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getFullNameKana() {
+		return fullNameKana;
+	}
+
+	public void setFullNameKana(String fullNameKana) {
+		this.fullNameKana = fullNameKana;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public Set<UserRole> getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(Set<UserRole> userRole) {
+		this.userRole = userRole;
+	}
 }
