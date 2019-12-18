@@ -86,6 +86,10 @@ public class TblUser {
 	@NotNull
 	private Date birthday;
 
+	@Column(name = "enabled", nullable = false)
+	@NotNull
+	private boolean enabled;
+
 	@OneToMany(mappedBy="tblUser")
 	private Set<UserRole> userRole = new HashSet<>();
 
@@ -167,5 +171,13 @@ public class TblUser {
 
 	public void setUserRole(Set<UserRole> userRole) {
 		this.userRole = userRole;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 }

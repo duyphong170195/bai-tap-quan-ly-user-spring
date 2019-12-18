@@ -8,6 +8,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -41,5 +43,7 @@ public class MstGroupRepositoryTest {
         TblUser tblUser = tblUserRepository.findByUserName("admin");
         tblUser.getLoginName();
      userRoleRepository.findAll();
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        String a = encoder.encode("123456");
     }
 }

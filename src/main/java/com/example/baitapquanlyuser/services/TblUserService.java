@@ -22,8 +22,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Service
-public class TblUserService {
+@Service("tblUserService")
+public class TblUserService implements UserDetailsService{
 
     @Autowired
     TblUserRepository tblUserRepository;
@@ -45,7 +45,7 @@ public class TblUserService {
     private User buildUserForAuthentication(TblUser tblUser,
                                             List<GrantedAuthority> authorities) {
         return new User(tblUser.getLoginName(), tblUser.getPassword(),
-                true, true, true, true, authorities);
+                tblUser.isEnabled(), true, true, true, authorities);
     }
 
     private List<GrantedAuthority> buildUserAuthority(Set<UserRole> userRoles) {

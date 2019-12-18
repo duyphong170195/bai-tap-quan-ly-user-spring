@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.List;
@@ -29,7 +30,7 @@ public class UserInformationRestController {
     MstGroupService mstGroupService;
 
     @RequestMapping(value = "/listUserRest", method = RequestMethod.GET)
-    public ResponseEntity<PageUserModel> getListUser(SearchData searchData) {
+    public ResponseEntity<PageUserModel> getListUser(SearchData searchData, HttpServletRequest request) {
         PageUserModel pageUserModel = userInformationService.getListUsersInformation(searchData);
         return ResponseEntity.ok(pageUserModel);
     }

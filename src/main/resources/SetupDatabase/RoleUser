@@ -7,3 +7,6 @@ CREATE TABLE user_roles (
   KEY fk_user_id_idx (user_id),
   CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES tbl_user (user_id)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+  ALTER TABLE tbl_user MODIFY `password` varchar(200); // cho độ dài tăng lên để mã hóa mật khẩu
+  ALTER TABLE tbl_user add `enabled` TINYINT NOT NULL DEFAULT 1; // Thêm trường cho phép đăng nhặp hoặc không
