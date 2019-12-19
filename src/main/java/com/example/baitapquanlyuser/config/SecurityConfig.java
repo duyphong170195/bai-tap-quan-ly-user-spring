@@ -31,17 +31,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/listUser/**")
-                .hasAnyRole("ADMIN", "USER")
-//                .access("hasRole('ROLE_ADMIN')")
+//        http.authorizeRequests().antMatchers("/listUser/**")
+//                .hasAnyRole("ADMIN", "USER")
+////                .access("hasRole('ROLE_ADMIN')")
 //                .anyRequest().authenticated()
-                .and().formLogin();
-//                .loginPage("/login").failureUrl("/login?error")
+//                .and().formLogin()
+//                .loginPage("/login").loginProcessingUrl("/j_spring_security_check").failureUrl("/login?error")
 //                .usernameParameter("username")
 //                .passwordParameter("password")
 //                .and().logout().logoutSuccessUrl("/login?logout")
-//                .and().csrf()
-//                .and().exceptionHandling().accessDeniedPage("/403");
+//                .and().csrf();
+////                .and().exceptionHandling().accessDeniedPage("/403");
+             http
+                .authorizeRequests()
+                     .antMatchers(
+                             "/js/**",
+                             "/css/**",
+                             "/images/**").permitAll()
+                    .antMatchers("/listUser/**")
+                    .hasAnyRole("ADMIN", "USER")
+                     .antMatchers("/listGroupRest/**")
+                     .hasAnyRole("ADMIN", "USER")
+                    .anyRequest().authenticated()
+                    .and()
+                .formLogin()
+                    .loginPage("/login").permitAll()
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .and()
+                 .logout()
+                     .permitAll();
     }
 
     @Bean

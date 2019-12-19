@@ -63,14 +63,13 @@ public class UserInformationController {
 		return "ADM002";
 	}
 
-	@RequestMapping(value = "/listUser", method = RequestMethod.GET)
+	@RequestMapping(value = {"/listUser"}, method = RequestMethod.GET)
 	public String getListUser(){
 		return "ADM0002";
 	}
 
-	@RequestMapping(value = "/loginCustom", method = RequestMethod.GET)
-	public String loginCustom(){
-		return "ADM001";
+	@RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+	public String login(){
+		return "login";
 	}
-
 }
