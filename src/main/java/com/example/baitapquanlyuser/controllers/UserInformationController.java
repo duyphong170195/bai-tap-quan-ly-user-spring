@@ -3,6 +3,7 @@ package com.example.baitapquanlyuser.controllers;
 import com.example.baitapquanlyuser.entities.MstGroup;
 import com.example.baitapquanlyuser.model.PagerModel;
 import com.example.baitapquanlyuser.model.UserInformation;
+import com.example.baitapquanlyuser.properties.MessageByLocaleService;
 import com.example.baitapquanlyuser.services.MstGroupService;
 import com.example.baitapquanlyuser.services.UserInformationService;
 import com.example.baitapquanlyuser.utils.Common;
@@ -31,6 +32,9 @@ public class UserInformationController {
 	
 	@Autowired
 	MstGroupService mstGroupService;
+
+	@Autowired
+	MessageByLocaleService messageErrorProperties;
 	
 	
 	@RequestMapping(value = "/listUser1111111", method = RequestMethod.GET)

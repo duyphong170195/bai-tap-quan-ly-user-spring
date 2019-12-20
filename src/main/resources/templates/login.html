@@ -19,8 +19,22 @@
             </tr>
 
             <tr>
+                <script th:inline="javascript">
+                    /*<![CDATA[*/
+
+                    var message = /*[[${param.error}]]*/ 'default';
+                    console.log(message);
+
+                    /*]]>*/
+                </script>
                 <td class="errMsg" colspan="2">
                     &nbsp;
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger">
+                            Invalid username or password.
+                            <span th:value ="${param.error}"></span>
+                        </div>
+                    </div>
                 </td>
             </tr>
             <tr align="left">

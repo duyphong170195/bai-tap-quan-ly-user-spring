@@ -3,6 +3,7 @@ package com.example.baitapquanlyuser.repositories;
 import com.example.baitapquanlyuser.entities.MstGroup;
 import com.example.baitapquanlyuser.entities.TblUser;
 import com.example.baitapquanlyuser.entities.UserRole;
+import com.example.baitapquanlyuser.properties.MessageByLocaleService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,6 @@ public class MstGroupRepositoryTest {
 
     @Test
     public void findAll(){
-
         String a = "";
         if(a.isEmpty()){
             System.out.print("aaaaaaaaaaaaaaaaaaaHello world");
