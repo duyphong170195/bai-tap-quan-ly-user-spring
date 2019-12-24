@@ -19,20 +19,12 @@
             </tr>
 
             <tr>
-                <script th:inline="javascript">
-                    /*<![CDATA[*/
-
-                    var message = /*[[${param.error}]]*/ 'default';
-                    console.log(message);
-
-                    /*]]>*/
-                </script>
                 <td class="errMsg" colspan="2">
                     &nbsp;
-                    <div th:if="${param.error}">
+                    <div th:if="${error}">
                         <div class="alert alert-danger">
-                            Invalid username or password.
-                            <span th:value ="${param.error}"></span>
+                            <span th:text ="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></span>
+                            <h1 th:text="${error}"></h1>
                         </div>
                     </div>
                 </td>

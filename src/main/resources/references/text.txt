@@ -17,3 +17,5 @@ Spring security:
     1. https://hellokoding.com/registration-and-login-example-with-spring-security-spring-boot-spring-data-jpa-hsql-jsp/
     2. https://memorynotfound.com/spring-boot-spring-security-thymeleaf-form-login-example/
     3. https://www.baeldung.com/spring-security-extra-login-fields
+    4. https://stackoverflow.com/questions/46256206/spring-boot-security-custom-messages-while-user-login
+    5. https://www.logicbig.com/tutorials/spring-framework/spring-security/custom-authentication-provider.html
