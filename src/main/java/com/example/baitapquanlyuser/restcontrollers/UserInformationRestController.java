@@ -10,6 +10,7 @@ import com.example.baitapquanlyuser.utils.Common;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,6 +42,7 @@ public class UserInformationRestController {
     MessageByLocaleService messageErrorProperties;
 
     @RequestMapping(value = "/listUserRest", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<PageUserModel> getListUser(SearchData searchData, HttpServletRequest request) {
         PageUserModel pageUserModel = userInformationService.getListUsersInformation(searchData);
         String username = "";

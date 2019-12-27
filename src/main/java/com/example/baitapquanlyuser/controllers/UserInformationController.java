@@ -10,6 +10,7 @@ import com.example.baitapquanlyuser.utils.Common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,34 +47,12 @@ public class UserInformationController {
 			@RequestParam(value = "sortNameValue", defaultValue = "ASC") String sortNameValue,
 			@RequestParam(value = "sortLevelValue", defaultValue = "ASC") String sortLevelValue,
 			@RequestParam(value = "sortDateValue", defaultValue = "DESC") String sortDateValue) {
-//		try {
-//			HttpSession session = req.getSession();
-//			List<UserInformation> userInformationList =
-//					userInformationService.getListUsersInformation(action, fullName, groupId, sortType, sortNameValue, sortLevelValue, sortDateValue);
-//			List<MstGroup> mstGroupList = mstGroupService.getAllMstGroup();
-//			model.addAttribute("userInformationList", userInformationList);
-//			model.addAttribute("mstGroupList", mstGroupList);
-//			model.addAttribute("groupId", Common.toInteger(groupId));
-//			model.addAttribute("fullName", fullName);
-//			model.addAttribute("sortType", sortType);
-//			model.addAttribute("sortNameValue", sortNameValue);
-//			model.addAttribute("sortLevelValue", sortLevelValue);
-//			model.addAttribute("sortDateValue", sortDateValue);
-//			return "ADM002";
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return "index";
-//		}
 		return "ADM002";
 	}
 
 	@RequestMapping(value = {"/listUser"}, method = RequestMethod.GET)
-	public String getListUser(){
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+	public String getListUser() {
 		return "ADM0002";
 	}
-
-//	@RequestMapping(value = {"/login"}, method = RequestMethod.GET)
-//	public String login(){
-//		return "login";
-//	}
 }
