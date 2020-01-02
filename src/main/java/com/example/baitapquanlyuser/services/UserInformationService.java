@@ -1,5 +1,6 @@
 package com.example.baitapquanlyuser.services;
 
+import com.example.baitapquanlyuser.exceptionhandling.NotFoundException;
 import com.example.baitapquanlyuser.model.PageUserModel;
 import com.example.baitapquanlyuser.model.SearchData;
 import com.example.baitapquanlyuser.model.UserInformation;
@@ -18,9 +19,7 @@ public class UserInformationService {
 	
 	
 	//	public PageUserModel getListUsersInformation(String fullName, int groFupId, String sortType, String sortValue, int currentPage) {
-	public PageUserModel
-			
-			getListUsersInformation(SearchData searchData) {
+	public PageUserModel getListUsersInformation(SearchData searchData) {
 		PageUserModel pageUserModel = new PageUserModel();
 		String action = searchData.getAction();
 		String fullName = searchData.getFullName();
@@ -34,6 +33,9 @@ public class UserInformationService {
 		boolean previousPage = searchData.isPrevious();
 		int limitPage = pageUserModel.getLimitPage();
 		int totalUser = tblDetailUserJapanRepository.countTotalUsers(fullName, Common.toInteger(groupId));
+		if(totalUser == 0) {
+			throw new NotFoundException("TblUser", 3);
+		}
 //		Preconditions.checkNotNull(action, "action must not be null");
 //		Preconditions.checkNotNull(fullName, "fullName must not be null");
 //		Preconditions.checkNotNull(groupId, "groupId must not be null");

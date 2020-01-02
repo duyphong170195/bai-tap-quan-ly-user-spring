@@ -2,6 +2,7 @@ package com.example.baitapquanlyuser.services;
 
 import com.example.baitapquanlyuser.entities.MstGroup;
 import com.example.baitapquanlyuser.exceptionhandling.EntityNotFoundException;
+import com.example.baitapquanlyuser.exceptionhandling.NotFoundException;
 import com.example.baitapquanlyuser.repositories.MstGroupRepository;
 import com.example.baitapquanlyuser.repositories.TblUserRepository;
 import com.example.baitapquanlyuser.utils.Common;
@@ -30,6 +31,6 @@ public class MstGroupService {
 
 	public MstGroup findById(Integer groupId) {
 		return mstGroupRepository.findById(groupId)
-			.orElseThrow(() -> new EntityNotFoundException(MstGroup.class, "id", groupId.toString()));
+			.orElseThrow(() -> new NotFoundException("MstGroup", groupId));
 	}
 }

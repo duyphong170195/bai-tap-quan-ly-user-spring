@@ -21,3 +21,5 @@ Spring security:
     5. https://www.logicbig.com/tutorials/spring-framework/spring-security/custom-authentication-provider.html
     6. https://www.armedia.com/blog/spring-method-security/
     7. https://www.concretepage.com/spring/spring-security/preauthorize-postauthorize-in-spring-security
+    8. https://www.concretepage.com/spring-4/spring-security-thymeleaf-login-logout
+    9. http://websystique.com/spring-security/spring-security-4-logout-example/

@@ -44,13 +44,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
-                    .loginPage("/login").permitAll()
+                    .loginPage("/login").permitAll() // url page html
+                    .loginProcessingUrl("/login") // equivalent call login controller
                     .defaultSuccessUrl("/listUser")
                     .failureUrl("/login?error")
                     .usernameParameter("username")
                     .passwordParameter("password")
                     .and()
                  .logout()
+                     .logoutUrl("/logout")
+                     .logoutSuccessUrl("/login")
                      .permitAll().and().exceptionHandling().accessDeniedPage("/403");
     }
 
@@ -59,7 +62,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider impl = new DaoAuthenticationProvider();
         impl.setUserDetailsService(tblUserService);
         impl.setPasswordEncoder(passwordEncoder());
-        impl.setHideUserNotFoundExceptions(false) ;
         return impl ;
     }
 

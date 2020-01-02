@@ -84,6 +84,9 @@ $(document).ready(function () {
         }).fail(function (jqXHR, textStatus, errorThrown) {
             // If fail
             console.log(textStatus + ': ' + errorThrown);
+            console.log(jqXHR.responseText);
+            console.log(jqXHR.responseJSON);
+            console.log(jqXHR.responseJSON.detail);
         });
     };
 

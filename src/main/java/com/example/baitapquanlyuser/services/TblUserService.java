@@ -46,16 +46,10 @@ public class TblUserService implements UserDetailsService /*AuthenticationProvid
     @Transactional(readOnly=true)
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException {
-
         TblUser tblUser = tblUserRepository.findByUserName(username);
-        if(tblUser == null) {
-            throw new UsernameNotFoundException("Username and domain must be provided");
-        }
         List<GrantedAuthority> authorities =
                 buildUserAuthority(tblUser.getUserRole());
         User user = buildUserForAuthentication(tblUser, authorities);
-
-
         return user;
     }
 
