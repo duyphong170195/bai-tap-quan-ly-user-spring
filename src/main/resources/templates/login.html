@@ -32,14 +32,14 @@
             <tr align="left">
                 <td class="lbl_left">account name:</td>
                 <td align="left">
-                    <input class="txBox" type="text" id="username" name="username" value="" size="20" onfocus="this.style.borderColor='#0066ff';"
+                    <input class="txBox" type="text" id="username" name="username" th:value="${username}" size="20" onfocus="this.style.borderColor='#0066ff';"
                            onblur="this.style.borderColor='#aaaaaa';" />
                 </td>
             </tr>
             <tr>
                 <td class="lbl_left">password:</td>
                 <td align="left">
-                    <input class="txBox" type="password" id="password" name="password" value=""	size="22" onfocus="this.style.borderColor='#0066ff';"
+                    <input class="txBox" type="password" id="password" name="password" th:value="${password}" size="22" onfocus="this.style.borderColor='#0066ff';"
                            onblur="this.style.borderColor='#aaaaaa';" />
                 </td>
             </tr>

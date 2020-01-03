@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
@@ -48,45 +49,5 @@ public class UserInformationRestController {
     public ResponseEntity<PageUserModel> getListUser(SearchData searchData, HttpServletRequest request) {
         PageUserModel pageUserModel = userInformationService.getListUsersInformation(searchData);
         return ResponseEntity.ok(pageUserModel);
-    }
-
-    //Spring Security see this :
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login(
-            @RequestParam(value = "error", required = false) String error,
-            @RequestParam(value = "logout", required = false) String logout) {
-        ModelAndView model = new ModelAndView();
-        if (error != null) {
-            model.addObject("error", "Invalid username and password!");
-        }
-        if (logout != null) {
-            model.addObject("msg", "You've been logged out successfully.");
-        }
-        model.setViewName("login");
-        return model;
-    }
-
-    // for 403 access denied page
-    @RequestMapping(value = "/403", method = RequestMethod.GET)
-    public ModelAndView accesssDenied(Principal user) {
-        ModelAndView model = new ModelAndView();
-        if (user != null) {
-            model.addObject("msg", "Hi " + user.getName()
-                    + ", you do not have permission to access this page!");
-        } else {
-            model.addObject("msg",
-                    "You do not have permission to access this page!");
-        }
-        model.setViewName("403");
-        return model;
-    }
-
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        return "redirect:/login?logout";//You can redirect wherever you want, but generally it's a good practice to show login screen again.
     }
 }

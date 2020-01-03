@@ -64,7 +64,6 @@ public class UserInformation {
 	@Temporal(TemporalType.DATE)
 	@JsonProperty("start_date")
 	private String startDate;
-	
 	@Temporal(TemporalType.DATE)
 	@JsonProperty("end_date")
 	private String endDate;

@@ -16,7 +16,7 @@
         <table>
             <tr>
                 <td width = "80%"><img src="../images/logo-manager-user.gif" alt="Luvina" /><td>
-                <td align="left"><a th:href = "@{/logout}">Logout</a>  <a href = "ADM002.html">Top</a><td>
+                <td align="left"><a th:href = "@{/logout}">Logout</a>  <a th:href = "@{/listUser}">Top</a><td>
             </tr>
         </table>
     </div>
@@ -58,8 +58,8 @@
                             </select>
                         </td>
                         <td align="left">
-                            <input class="btn" type="submit" value="検索" id="btn_search"/>
-                            <input class="btn" type="button" value="新規追加" />
+                            <input class="btn" type="submit" value="Search" id="btn_search"/>
+                            <input class="btn" type="button" value="Add User" th:onclick="|window.location.href='@{/addingUserForm}'|" />
                         </td>
                     </tr>
                 </table>

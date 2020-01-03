@@ -53,8 +53,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                  .logout()
                      .logoutUrl("/logout")
-                     .logoutSuccessUrl("/login")
-                     .permitAll().and().exceptionHandling().accessDeniedPage("/403");
+                     .invalidateHttpSession(true)
+                     .deleteCookies("JSESSIONID")
+                     .logoutSuccessUrl("/login?username")
+                     .permitAll()
+                     .and()
+                     .exceptionHandling().accessDeniedPage("/403");
     }
 
     @Bean
