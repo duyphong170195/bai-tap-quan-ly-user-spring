@@ -23,3 +23,6 @@ Spring security:
     7. https://www.concretepage.com/spring/spring-security/preauthorize-postauthorize-in-spring-security
     8. https://www.concretepage.com/spring-4/spring-security-thymeleaf-login-logout
     9. http://websystique.com/spring-security/spring-security-4-logout-example/
+
+Login Registration:
+    1. https://medium.com/@devquora/login-registration-example-with-spring-boot-f5f76459c59d

@@ -24,7 +24,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,21 +67,37 @@ public class UserInformationController {
 
 	@RequestMapping(value = {"/addingUserForm"}, method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-	public ModelAndView addingUserForm() throws ClassNotFoundException, SQLException {
-		ModelAndView modelAndView = new ModelAndView();
-		setDataLogic(modelAndView);
-        return modelAndView;
+	public String addingUserForm(Model model) throws ClassNotFoundException, SQLException {
+		setDefaultValue(model);
+		setDataLogic(model);
+        return "ADM003";
 	}
 
 
-	private void setDataLogic(ModelAndView model) throws ClassNotFoundException, SQLException {
+	private void setDataLogic(Model model) throws ClassNotFoundException, SQLException {
 		int fromYear = 1900;
 		int toYear = Calendar.getInstance().get(Calendar.YEAR);
 		// setAttribute các dữ liệu để gửi lên ADM003
-		model.addObject("listYear", Common.getListYear(fromYear, toYear + 2));
-		model.addObject("listMonth", Common.getListMonth());
-		model.addObject("listDay", Common.getListDay());
-		model.addObject("listGroup", mstGroupService.getAllMstGroup());
-		model.addObject("listLevel", mstJapanService.getAllMstJapan());
+		model.addAttribute("listYear", Common.getListYear(fromYear, toYear + 2));
+		model.addAttribute("listMonth", Common.getListMonth());
+		model.addAttribute("listDay", Common.getListDay());
+		model.addAttribute("listGroup", mstGroupService.getAllMstGroup());
+		model.addAttribute("listLevel", mstJapanService.getAllMstJapan());
+	}
+
+	private  void setDefaultValue(Model model) {
+		String pattern = "MM/dd/yyyy";
+		DateFormat df = new SimpleDateFormat(pattern);
+		Date today = Calendar.getInstance().getTime();
+		String todayAsString = df.format(today);
+		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+		int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+
+		UserInformation userInformation = new UserInformation();
+		userInformation.setBirthday(todayAsString);
+		userInformation.setStartDate(todayAsString);
+		userInformation.setEndDate(todayAsString);
+		model.addAttribute("userInfor", userInformation);
 	}
 }

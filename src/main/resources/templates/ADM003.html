@@ -6,6 +6,12 @@
 <link href="../css/style.css" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
 <script type="text/javascript" src="../javascript/jsADM003.js"></script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var test = /*[[${userInfor.birthday}]]*/ null;
+		console.log(test);
+		/*]]>*/
+	</script>
 <title>ユーザ管理</title>
 </head>
 <body>
@@ -33,7 +39,8 @@
 					会員情報編集
 				</div>
 			</th>			
-		</tr>		
+		</tr>
+
 		<tr>
 			<td class="errMsg">
 				<div style="padding-left:120px" th:if="${not #lists.isEmpty(listError)}">
@@ -90,24 +97,24 @@
 					<tr>
 						<td class="lbl_left"><font color = "red">*</font> 生年月日:</td>
 						<td align="left">
-								<select name="yearOfBirth" th:field="*{iBirthYear}">
-									<th:block th:each="year : ${listYear}">
-										<option th:if="${year == userInfor.iBirthYear}" selected="selected" th:text="${year}" th:value="${year}"></option>
-										<option th:unless="${year == userInfor.iBirthYear}" th:text="${year}" th:value="${year}"></option>
-									</th:block>
-								</select>年
-								<select name="monthOfBirth" th:field="*{iBirthMonth}">
-									<th:block th:each="month : ${listMonth}">
-										<option th:if="${month == userInfor.iBirthMonth}" selected="selected" th:text="${month}" th:value="${month}"></option>
-										<option th:unless="${month == userInfor.iBirthMonth}" th:text="${month}" th:value="${month}"></option>
-									</th:block>
-								</select>月
-								<select name="dayOfBirth" th:field="*{iBirthday}">
-									<th:block th:each="day : ${listDay}">
-										<option th:if="${day == userInfor.iBirthday}" selected="selected" th:text="${day}" th:value="${day}"></option>
-										<option th:unless="${day == userInfor.iBirthday}" th:text="${day}" th:value="${day}"></option>
-									</th:block>
-								</select>日							
+								<!--<select name="yearOfBirth" th:field="*{iBirthYear}">-->
+									<!--<th:block th:each="year : ${listYear}">-->
+										<!--<option th:if="${year == userInfor.iBirthYear}" selected="selected" th:text="${year}" th:value="${year}"></option>-->
+										<!--<option th:unless="${year == userInfor.iBirthYear}" th:text="${year}" th:value="${year}"></option>-->
+									<!--</th:block>-->
+								<!--</select>年-->
+								<!--<select name="monthOfBirth" th:field="*{iBirthMonth}">-->
+									<!--<th:block th:each="month : ${listMonth}">-->
+										<!--<option th:if="${month == userInfor.iBirthMonth}" selected="selected" th:text="${month}" th:value="${month}"></option>-->
+										<!--<option th:unless="${month == userInfor.iBirthMonth}" th:text="${month}" th:value="${month}"></option>-->
+									<!--</th:block>-->
+								<!--</select>月-->
+								<!--<select name="dayOfBirth" th:field="*{iBirthday}">-->
+									<!--<th:block th:each="day : ${listDay}">-->
+										<!--<option th:if="${day == userInfor.iBirthday}" selected="selected" th:text="${day}" th:value="${day}"></option>-->
+										<!--<option th:unless="${day == userInfor.iBirthday}" th:text="${day}" th:value="${day}"></option>-->
+									<!--</th:block>-->
+								<!--</select>日							-->
 						</td>
 					</tr>				
 					<tr>
@@ -164,49 +171,49 @@
 					<tr>
 						<td class="lbl_left">資格交付日: </td>
 						<td align="left">
-							<select name="iStartYear" th:field="*{iStartYear}" >
-								<th:block th:each="year : ${listYear}">
-									<option th:if="${year == userInfor.iStartYear}" selected="selected" th:text="${year}" th:value="${year}"></option>
-									<option th:unless="${year == userInfor.iStartYear}" th:text="${year}" th:value="${year}"></option>
-								</th:block>
-							</select>年
-							<select name="iStartMonth" th:field="*{iStartMonth}">
-								<th:block th:each="month : ${listMonth}">
-									<option th:if="${month == userInfor.iStartMonth}" selected="selected" th:text="${month}" th:value="${month}"></option>
-									<option th:unless="${month == userInfor.iStartMonth}" th:text="${month}" th:value="${month}"></option>
-								</th:block>
-							</select>月
-							<select name="iStartDay" th:field="*{iStartDay}">
-								<th:block th:each="day : ${listDay}">
-									<option th:if="${day == userInfor.iStartDay}" selected="selected" th:text="${day}" th:value="${day}"></option>
-									<option th:unless="${day == userInfor.iStartDay}" th:text="${day}" th:value="${day}"></option>
-								</th:block>
-							</select>日
+							<!--<select name="iStartYear" th:field="*{iStartYear}" >-->
+								<!--<th:block th:each="year : ${listYear}">-->
+									<!--<option th:if="${year == userInfor.iStartYear}" selected="selected" th:text="${year}" th:value="${year}"></option>-->
+									<!--<option th:unless="${year == userInfor.iStartYear}" th:text="${year}" th:value="${year}"></option>-->
+								<!--</th:block>-->
+							<!--</select>年-->
+							<!--<select name="iStartMonth" th:field="*{iStartMonth}">-->
+								<!--<th:block th:each="month : ${listMonth}">-->
+									<!--<option th:if="${month == userInfor.iStartMonth}" selected="selected" th:text="${month}" th:value="${month}"></option>-->
+									<!--<option th:unless="${month == userInfor.iStartMonth}" th:text="${month}" th:value="${month}"></option>-->
+								<!--</th:block>-->
+							<!--</select>月-->
+							<!--<select name="iStartDay" th:field="*{iStartDay}">-->
+								<!--<th:block th:each="day : ${listDay}">-->
+									<!--<option th:if="${day == userInfor.iStartDay}" selected="selected" th:text="${day}" th:value="${day}"></option>-->
+									<!--<option th:unless="${day == userInfor.iStartDay}" th:text="${day}" th:value="${day}"></option>-->
+								<!--</th:block>-->
+							<!--</select>日-->
 						</td>
 					</tr>
 					<tr>
 						<td class="lbl_left">失効日: </td>
 						<td align="left">
-							<select name="iEndYear" th:field="*{iEndYear}">
-								<th:block th:each="year : ${listYear}">
-									<div th:switch="${year}">
-										<option th:if="${year == userInfor.iEndYear}" selected="selected" th:text="${year}" th:value="${year}"></option>
-										<option th:unless="${year == userInfor.iEndYear}" th:text="${year}" th:value="${year}"></option>
-									</div>
-								</th:block>
-								</select>年
-							<select name="iEndMonth" th:field="*{iEndMonth}">
-								<th:block th:each="month : ${listMonth}">
-									<option th:if="${month == userInfor.iEndMonth}" selected="selected" th:text="${month}" th:value="${month}"></option>
-									<option th:unless="${month == userInfor.iEndMonth}" th:text="${month}" th:value="${month}"></option>
-								</th:block>
-							</select>月
-								<select name="iEndDay" th:field="*{iEndDay}">
-									<th:block th:each="day : ${listDay}">
-										<option th:if="${day == userInfor.iEndDay}" selected="selected" th:text="${day}" th:value="${day}"></option>
-										<option th:unless="${day == userInfor.iEndDay}" th:text="${day}" th:value="${day}"></option>
-									</th:block>
-								</select>日							
+							<!--<select name="iEndYear" th:field="*{iEndYear}">-->
+								<!--<th:block th:each="year : ${listYear}">-->
+									<!--<div th:switch="${year}">-->
+										<!--<option th:if="${year == userInfor.iEndYear}" selected="selected" th:text="${year}" th:value="${year}"></option>-->
+										<!--<option th:unless="${year == userInfor.iEndYear}" th:text="${year}" th:value="${year}"></option>-->
+									<!--</div>-->
+								<!--</th:block>-->
+								<!--</select>年-->
+							<!--<select name="iEndMonth" th:field="*{iEndMonth}">-->
+								<!--<th:block th:each="month : ${listMonth}">-->
+									<!--<option th:if="${month == userInfor.iEndMonth}" selected="selected" th:text="${month}" th:value="${month}"></option>-->
+									<!--<option th:unless="${month == userInfor.iEndMonth}" th:text="${month}" th:value="${month}"></option>-->
+								<!--</th:block>-->
+							<!--</select>月-->
+								<!--<select name="iEndDay" th:field="*{iEndDay}">-->
+									<!--<th:block th:each="day : ${listDay}">-->
+										<!--<option th:if="${day == userInfor.iEndDay}" selected="selected" th:text="${day}" th:value="${day}"></option>-->
+										<!--<option th:unless="${day == userInfor.iEndDay}" th:text="${day}" th:value="${day}"></option>-->
+									<!--</th:block>-->
+								<!--</select>日							-->
 						</td>
 					</tr>
 					<tr>
