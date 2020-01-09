@@ -50,4 +50,5 @@ public class UserInformationRestController {
         PageUserModel pageUserModel = userInformationService.getListUsersInformation(searchData);
         return ResponseEntity.ok(pageUserModel);
     }
+
 }

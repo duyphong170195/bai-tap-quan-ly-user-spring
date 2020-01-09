@@ -47,10 +47,13 @@ public class TblUserService implements UserDetailsService /*AuthenticationProvid
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException {
         TblUser tblUser = tblUserRepository.findByUserName(username);
-        List<GrantedAuthority> authorities =
-                buildUserAuthority(tblUser.getUserRole());
-        User user = buildUserForAuthentication(tblUser, authorities);
-        return user;
+        if(tblUser != null) {
+            List<GrantedAuthority> authorities =
+                    buildUserAuthority(tblUser.getUserRole());
+            User user = buildUserForAuthentication(tblUser, authorities);
+            return user;
+        }
+        return null;
     }
 
     // Converts com.mkyong.users.model.User user to
