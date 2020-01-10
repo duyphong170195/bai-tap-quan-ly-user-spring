@@ -3,6 +3,7 @@ package com.example.baitapquanlyuser.model;
 import com.example.baitapquanlyuser.utils.CommonConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,7 @@ import java.util.Date;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserInformation {
 
 	@NotNull

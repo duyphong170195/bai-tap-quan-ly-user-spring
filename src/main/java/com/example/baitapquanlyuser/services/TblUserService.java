@@ -78,6 +78,18 @@ public class TblUserService implements UserDetailsService /*AuthenticationProvid
         return Result;
     }
 
+    public boolean checkExistedLoginName(String loginName){
+        return tblUserRepository.findByLoginName(loginName) != null ? true : false;
+    }
+
+    public boolean checkExistedEmail(String email){
+        return tblUserRepository.findByEmail(email) != null? true: false;
+    }
+
+    public boolean checkExistedEmailExceptEmailOfUserId(int userId, String email) {
+        return tblUserRepository.checkExistedEmailExceptEmailOfUserId(userId, email) != null ? true: false;
+    }
+
 //    @Override
 //    @Transactional(readOnly=true)
 //    public Authentication authenticate(Authentication authentication) throws AuthenticationException {

@@ -1,38 +1,33 @@
 package com.example.baitapquanlyuser.controllers;
 
-import com.example.baitapquanlyuser.entities.MstGroup;
-import com.example.baitapquanlyuser.model.PagerModel;
 import com.example.baitapquanlyuser.model.UserInformation;
 import com.example.baitapquanlyuser.properties.MessageByLocaleService;
 import com.example.baitapquanlyuser.services.MstGroupService;
 import com.example.baitapquanlyuser.services.MstJapanService;
 import com.example.baitapquanlyuser.services.UserInformationService;
 import com.example.baitapquanlyuser.utils.Common;
+import com.example.baitapquanlyuser.utils.CommonConstant;
+import com.example.baitapquanlyuser.validates.ValidateUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 @Controller
 public class UserInformationController {
@@ -48,8 +43,10 @@ public class UserInformationController {
 
 	@Autowired
 	MstJapanService mstJapanService;
-	
-	
+
+	@Autowired
+	ValidateUser validateUser;
+
 	@RequestMapping(value = "/listUser1111111", method = RequestMethod.GET)
 	public String getListUser(Model model, HttpServletRequest req,
 		  	@RequestParam(value = "action", defaultValue ="search" ) String action,
@@ -76,22 +73,38 @@ public class UserInformationController {
         return "ADM003";
 	}
 
-	@RequestMapping(value = {"/confirmUserForm"}, method = RequestMethod.POST)
+
+	@RequestMapping(value = "/confirmUserForm", method = RequestMethod.POST)
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-	public String abc(@ModelAttribute("userInformation") UserInformation userInfor, HttpServletRequest req) throws ClassNotFoundException, SQLException {
-
-		userInfor.getCodeLevel();
-
+	public String confirmUserForm(Model model, @ModelAttribute("userInformation") UserInformation userInformation, HttpServletRequest req) throws ClassNotFoundException, SQLException {
+		List<String> listError;
+		listError = validateUser.validateUserInfor(userInformation);
+		if(listError.size() == 0){
+			//Khởi tạo session
+			HttpSession session = req.getSession();
+			//Khởi tạo keyUserInfor cộng vào userInfor trong session để phân biệt được userInfor nào đang được add khi bật nhiều tab Adduser
+			int keySessionAddUser = Calendar.getInstance().get(Calendar.MILLISECOND);
+			//Sét session cho userInfor
+			session.setAttribute("userInfor"+keySessionAddUser, userInformation);
+			//Chuyển hướng đến servlet AddUserConfirm
+			return "redirect:" + CommonConstant.URL_PATTERN_ADD_USER_CONFIRM+"?keySessionAddUser="+keySessionAddUser;
+		}
+		else{//Nếu listError có phần tử lỗi
+			//Sét dữ liệu mặc định cho các ô input ở màn hình ADM003
+			setDataLogic(model);
+			//Gửi danh sách lỗi lên màn hình ADM003
+			model.addAttribute("listError", listError);
+			//Gửi dữ liệu userInfor lên màn hình ADM003 để hiển thị những dữ liệu đã nhập trước.
+			model.addAttribute("userInfor", userInformation);
+			//Chuyển hướng đến màn hình ADM003
+		}
         return "ADM003";
 	}
-
-
-
 
 	private void setDataLogic(Model model) throws ClassNotFoundException, SQLException {
 		int fromYear = 1900;
 		int toYear = Calendar.getInstance().get(Calendar.YEAR);
-		// setAttribute các dữ liệu để gửi lên ADM003
+	 // setAttribute các dữ liệu để gửi lên ADM003
 		model.addAttribute("listYear", Common.getListYear(fromYear, toYear + 2));
 		model.addAttribute("listMonth", Common.getListMonth());
 		model.addAttribute("listDay", Common.getListDay());

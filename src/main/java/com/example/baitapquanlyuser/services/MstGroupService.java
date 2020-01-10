@@ -33,4 +33,12 @@ public class MstGroupService {
 		return mstGroupRepository.findById(groupId)
 			.orElseThrow(() -> new NotFoundException("MstGroup", groupId));
 	}
+
+	public MstGroup getMstGroupByGroupId(int groupId) {
+		return mstGroupRepository.findById(groupId).orElse(null);
+	}
+
+	public boolean checkExistedGroupName(int groupId){
+		return mstGroupRepository.existsById(groupId);
+	}
 }
