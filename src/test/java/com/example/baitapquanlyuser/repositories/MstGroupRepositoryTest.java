@@ -15,6 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
@@ -35,6 +37,7 @@ public class MstGroupRepositoryTest {
         if(a.isEmpty()){
             System.out.print("aaaaaaaaaaaaaaaaaaaHello world");
         }
+        assertEquals(3,4);
     }
 
     @Test
