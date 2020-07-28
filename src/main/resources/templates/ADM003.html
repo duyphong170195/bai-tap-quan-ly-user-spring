@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="../css/style.css" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
-<title>ユーザ管理</title>
+<title>User Management</title>
 </head>
 <body>
 	<!-- Begin vung header -->	
@@ -13,8 +13,8 @@
 			<div>
 			<table>
 			<tr>
-			<td width = "80%"><img src="../images/logo-manager-user.gif" alt="Luvina" /><td>
-			<td align="left"><a href = "ADM001.html">ログアウト</a> &nbsp; <a href = "ADM002.html">トップ</a><td>
+			<td width = "80%"><img src="" alt="" /><td>
+			<td align="left"><a href = "ADM001.html">Log out</a> &nbsp; <a href = "ADM002.html">Reset</a><td>
 			</tr>
 			</table>
 			</div>
@@ -29,7 +29,7 @@
 		<tr>
 			<th align="left">
 				<div style="padding-left:100px;">
-					会員情報編集
+					Create Member Information
 				</div>
 			</th>			
 		</tr>
@@ -52,7 +52,7 @@
 				<div style="padding-left:100px;">
 					<table border="0" width="100%" class="tbl_input" cellpadding="4" cellspacing="0" >					
 					<tr>
-						<td class="lbl_left"><font color = "red">*</font> アカウント名:</td>
+						<td class="lbl_left"><font color = "red">*</font> account name:</td>
 						<td align="left">
 							<input class="txBox" type="text" name="userName" th:field="*{userName}" th:value="${userInformation.userName}"
 							size="15" onfocus="this.style.borderColor='#0066ff';"
@@ -60,7 +60,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="lbl_left"><font color = "red">*</font> グループ:</td>
+						<td class="lbl_left"><font color = "red">*</font> group:</td>
 						<td align="left">						
 							<select name="groupID" th:field="*{groupId}">
 								<th:block th:each="group : ${listGroup}">
@@ -72,7 +72,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="lbl_left"><font color = "red">*</font> 氏名:</td>
+						<td class="lbl_left"><font color = "red">*</font> Full name:</td>
 						<td align="left">
 						<input class="txBox" type="text" name="fullName" th:field="*{fullName}" th:value="${userInformation.fullName}"
 							size="30" onfocus="this.style.borderColor='#0066ff';"
@@ -80,7 +80,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="lbl_left">カタカナ氏名:</td>
+						<td class="lbl_left">Katakana name:</td>
 						<td align="left">
 						<input class="txBox" type="text" name="fullNamesOfKana" th:field="*{fullNameKana}" th:value="${userInformation.fullNameKana}"
 							size="30" onfocus="this.style.borderColor='#0066ff';"
@@ -88,30 +88,30 @@
 						</td>
 					</tr>	
 					<tr>
-						<td class="lbl_left"><font color = "red">*</font> 生年月日:</td>
+						<td class="lbl_left"><font color = "red">*</font> Birthday:</td>
 						<td align="left">
 								<select name="yearOfBirth" th:field="*{iBirthYear}">
 									<th:block th:each="year : ${listYear}">
 										<option th:if="${year == userInformation.iBirthYear}" selected="selected" th:text="${year}" th:value="${year}"></option>
 										<option th:unless="${year == userInformation.iBirthYear}" th:text="${year}" th:value="${year}"></option>
 									</th:block>
-								</select>年
+								</select>Year
 								<select name="monthOfBirth" th:field="*{iBirthMonth}">
 									<th:block th:each="month : ${listMonth}">
 										<option th:if="${month == userInformation.iBirthMonth}" selected="selected" th:text="${month}" th:value="${month}"></option>
 										<option th:unless="${month == userInformation.iBirthMonth}" th:text="${month}" th:value="${month}"></option>
 									</th:block>
-								</select>月
+								</select>Month
 								<select name="dayOfBirth" th:field="*{iBirthday}">
 									<th:block th:each="day : ${listDay}">
 										<option th:if="${day == userInformation.iBirthday}" selected="selected" th:text="${day}" th:value="${day}"></option>
 										<option th:unless="${day == userInformation.iBirthday}" th:text="${day}" th:value="${day}"></option>
 									</th:block>
-								</select>日
+								</select>Day
 						</td>
 					</tr>				
 					<tr>
-						<td class="lbl_left"><font color = "red">*</font> メールアドレス:</td>
+						<td class="lbl_left"><font color = "red">*</font> mail address:</td>
 						<td align="left">
 							<input class="txBox" type="text" name="email" th:value="${userInformation.email}" th:field="*{email}"
 							size="30" onfocus="this.style.borderColor='#0066ff';"
@@ -119,7 +119,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="lbl_left"><font color = "red">*</font>電話番号:</td>
+						<td class="lbl_left"><font color = "red">*</font>phone number:</td>
 						<td align="left">
 						<input class="txBox" type="text" name="telephone" th:value="${userInformation.telephone}" th:field="*{telephone}"
 							size="30" onfocus="this.style.borderColor='#0066ff';"
@@ -127,7 +127,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="lbl_left"><font color = "red">*</font> パスワード:</td>
+						<td class="lbl_left"><font color = "red">*</font> password:</td>
 						<td align="left">
 							<input class="txBox" type="password" name="password" th:value="${userInformation.password}" th:field="*{password}"
 							size="30" onfocus="this.style.borderColor='#0066ff';"
@@ -135,7 +135,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="lbl_left">パスワード（確認）:</td>
+						<td class="lbl_left">Confirm password:</td>
 						<td align="left">
 							<input class="txBox" type="password" name="authenticatedPassword" th:value="${userInformation.authenticatedPassword}" th:field="*{authenticatedPassword}"
 							size="30" onfocus="this.style.borderColor='#0066ff';"
@@ -144,16 +144,16 @@
 					</tr>
 					<tr>
 						<th align="left" colspan = "2" >							
-								<a href = "#" id="clickHiddenOrVisible">日本語能力</a>
+								<a href = "#" id="clickHiddenOrVisible">Japanese ability</a>
 						</th>			
 					</tr>
 	</table>
 	<table id="hiddenTag">
 					<tr>
-						<td class="lbl_left">資格:</td>
+						<td class="lbl_left">qualifications:</td>
 						<td align="left">
 							<select name="codeLevel" th:field="*{codeLevel}" >
-								<option value="">選択してください</option>
+								<option value="">Please select</option>
 								<th:block th:each="level : ${listLevel}">
 									<option th:if="${level.codeLevel == userInformation.codeLevel}" selected="selected" th:text="${level.codeLevel}" th:value="${level.codeLevel}"></option>
 									<option th:unless="${level.codeLevel == userInformation.codeLevel}" th:text="${level.codeLevel}" th:value="${level.codeLevel}"></option>
@@ -162,30 +162,30 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="lbl_left">資格交付日: </td>
+						<td class="lbl_left">Qualification date: </td>
 						<td align="left">
 							<select name="iStartYear" th:field="*{iStartYear}" >
 								<th:block th:each="year : ${listYear}">
 									<option th:if="${year == userInformation.iStartYear}" selected="selected" th:text="${year}" th:value="${year}"></option>
 									<option th:unless="${year == userInformation.iStartYear}" th:text="${year}" th:value="${year}"></option>
 								</th:block>
-							</select>年
+							</select>Year
 							<select name="iStartMonth" th:field="*{iStartMonth}">
 								<th:block th:each="month : ${listMonth}">
 									<option th:if="${month == userInformation.iStartMonth}" selected="selected" th:text="${month}" th:value="${month}"></option>
 									<option th:unless="${month == userInformation.iStartMonth}" th:text="${month}" th:value="${month}"></option>
 								</th:block>
-							</select>月
+							</select>Month
 							<select name="iStartDay" th:field="*{iStartDay}">
 								<th:block th:each="day : ${listDay}">
 									<option th:if="${day == userInformation.iStartDay}" selected="selected" th:text="${day}" th:value="${day}"></option>
 									<option th:unless="${day == userInformation.iStartDay}" th:text="${day}" th:value="${day}"></option>
 								</th:block>
-							</select>日
+							</select>Day
 						</td>
 					</tr>
 					<tr>
-						<td class="lbl_left">失効日: </td>
+						<td class="lbl_left">Expire date: </td>
 						<td align="left">
 							<select name="iEndYear" th:field="*{iEndYear}">
 								<th:block th:each="year : ${listYear}">
@@ -194,23 +194,23 @@
 										<option th:unless="${year == userInformation.iEndYear}" th:text="${year}" th:value="${year}"></option>
 									</div>
 								</th:block>
-								</select>年
+								</select>Year
 							<select name="iEndMonth" th:field="*{iEndMonth}">
 								<th:block th:each="month : ${listMonth}">
 									<option th:if="${month == userInformation.iEndMonth}" selected="selected" th:text="${month}" th:value="${month}"></option>
 									<option th:unless="${month == userInformation.iEndMonth}" th:text="${month}" th:value="${month}"></option>
 								</th:block>
-							</select>月
+							</select>Month
 								<select name="iEndDay" th:field="*{iEndDay}">
 									<th:block th:each="day : ${listDay}">
 										<option th:if="${day == userInformation.iEndDay}" selected="selected" th:text="${day}" th:value="${day}"></option>
 										<option th:unless="${day == userInformation.iEndDay}" th:text="${day}" th:value="${day}"></option>
 									</th:block>
-								</select>日
+								</select>Day
 						</td>
 					</tr>
 					<tr>
-						<td class="lbl_left">点数: </td>
+						<td class="lbl_left">Points: </td>
 						<td align="left">
 							<input class="txBox" type="text" name="total" th:field="*{total}" th:value="${userInformation.total}"
 							size="5" onfocus="this.style.borderColor='#0066ff';"
@@ -229,10 +229,10 @@
 		<tr>
 			<th width="200px" align="center">&nbsp;</th>
 				<td>
-					<input class="btn" type="submit" value="確認" />
+					<input class="btn" type="submit" value="Confirmation" />
 				</td>	
 				<td>
-					<input class="btn" type="button" value="戻る" th:onclick="|window.location.href='@{/ADM002}'|"/>
+					<input class="btn" type="button" value="Back" th:onclick="|window.location.href='@{/listUser}'|"/>
 				</td>
 		</tr>		
 	</table>
@@ -244,7 +244,6 @@
 <!-- Begin vung footer -->
 <div class = "lbl_footer">
 	<br><br><br><br>
-			Copyright ©　2010　ルビナソフトウエア株式会社. All rights reserved.
 </div>
 <!-- End vung footer -->
 </body>

@@ -7,7 +7,7 @@
     <script type="text/javascript" src="../js/user.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="js/ADM002.js"></script>
-    <title>ユーザ管理</title>
+    <title>User Management</title>
 </head>
 <body>
 <!-- Begin vung header -->
@@ -15,7 +15,7 @@
     <div>
         <table>
             <tr>
-                <td width = "80%"><img src="../images/logo-manager-user.gif" alt="Luvina" /><td>
+                <td width = "80%"><img src="" /><td>
                 <td align="left"><a th:href = "@{/logout}">Logout</a>  <a th:href = "@{/listUser}">Top</a><td>
             </tr>
         </table>
@@ -35,14 +35,14 @@
         </tr>
         <tr>
             <td>
-                会員名称で会員を検索します。検索条件無しの場合は全て表示されます。
+                Search for a member by member name. If there are no search conditions, all are displayed.
             </td>
         </tr>
         <tr>
             <td width="100%">
                 <table class="tbl_input" cellpadding="4" cellspacing="0" >
                     <tr>
-                        <td class="lbl_left">氏名:</td>
+                        <td class="lbl_left">Full name:</td>
                         <td align="left">
                             <input class="txBox" type="text" name="name" value="" id = "full_name"
                                    size="20" onfocus="this.style.borderColor='#0066ff';"
@@ -51,10 +51,10 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="lbl_left">グループ:</td>
+                        <td class="lbl_left">Full name:</td>
                         <td align="left" width="80px">
                             <select name="group_id" id="group_id">
-                                <option value="0">全て</option>
+                                <option value="0">group</option>
                             </select>
                         </td>
                         <td align="left">
@@ -75,28 +75,28 @@
                 ID
             </th>
             <th align="left">
-                氏名 <a href = "" id="sortFullName" class="sort">▲▽</a>
+                FullName <a href = "" id="sortFullName" class="sort">▲▽</a>
             </th>
             <th align="left">
-                生年月日
+                DOB
             </th>
             <th align="left">
-                グループ
+                Group
             </th>
             <th align="left">
-                メールアドレス
+                email
             </th>
             <th align="left" width="70px">
-                電話番号
+                phone number
             </th>
             <th align="left">
-                日本語能力  <a href = "" id="sortNameLevel" class="sort">▲▽</a>
+                Level  <a href = "" id="sortNameLevel" class="sort">▲▽</a>
             </th>
             <th align="left">
-                失効日 <a href = "" id="sortEndDate" class="sort">△▼</a>
+                Expire date <a href = "" id="sortEndDate" class="sort">△▼</a>
             </th>
             <th align="left">
-                点数
+                Points
             </th>
         </tr>
     </thead>
@@ -125,12 +125,8 @@
 <!-- Begin vung footer -->
 <div class = "lbl_footer">
     <br><br><br><br>
-    Copyright ©　2010　ルビナソフトウエア株式会社. All rights reserved.
 </div>
 <!-- End vung footer -->
-
-<p id="greeting-id">The ID is </p>
-<p id="greeting-content">The content is </p>
 
 </body>
 
